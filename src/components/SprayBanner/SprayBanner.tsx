@@ -11,6 +11,11 @@ interface SprayBannerProps {
   className?: string;
 }
 
+/** One spray shoots words for this long (seconds), then the nozzle is quiet until the next one. */
+const SPRAY_SECONDS = 5;
+/** Time from the start of one spray to the start of the next (ms): 5 s of spray + 8 s of rest. */
+const SPRAY_CYCLE_MS = 13000;
+
 /** Reads a CSS variable from the element, with a fallback (canvas cannot use var()). */
 function readToken(el: Element, name: string, fallback: string): string {
   const v = getComputedStyle(el).getPropertyValue(name).trim();
@@ -24,11 +29,15 @@ export function SprayBanner({ title, children, className = '' }: SprayBannerProp
   const pressTimer = useRef<number>(0);
   const [pressed, setPressed] = useState(false);
 
-  const press = useCallback(() => {
-    engineRef.current?.burst(3);
+  // the pump goes down for a moment every time a spray starts (click, timer or page load)
+  const markPressed = useCallback(() => {
     setPressed(true);
     window.clearTimeout(pressTimer.current);
     pressTimer.current = window.setTimeout(() => setPressed(false), 350);
+  }, []);
+
+  const press = useCallback(() => {
+    engineRef.current?.spray(3);
   }, []);
 
   useEffect(() => {
@@ -46,6 +55,8 @@ export function SprayBanner({ title, children, className = '' }: SprayBannerProp
     const engine = createSpray(canvas, {
       rays,
       reducedMotion: reduced,
+      sprayDuration: SPRAY_SECONDS,
+      onSpray: markPressed,
       getOrigin: () => {
         const c = canvas.getBoundingClientRect();
         const n = nozzle.getBoundingClientRect();
@@ -63,7 +74,7 @@ export function SprayBanner({ title, children, className = '' }: SprayBannerProp
     });
     visibility.observe(canvas);
 
-    const interval = reduced ? 0 : window.setInterval(press, 7000);
+    const interval = reduced ? 0 : window.setInterval(press, SPRAY_CYCLE_MS);
 
     return () => {
       window.clearInterval(interval);
@@ -73,7 +84,7 @@ export function SprayBanner({ title, children, className = '' }: SprayBannerProp
       engine.destroy();
       engineRef.current = null;
     };
-  }, [press]);
+  }, [press, markPressed]);
 
   const labelScale = 56 / LABEL.width;
   const labelH = LABEL.height * labelScale;

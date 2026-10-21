@@ -5,6 +5,9 @@
  * Idea: every "ray" is a line that starts at the nozzle. Words travel along it.
  * Near the nozzle they are tiny and slow, far away they are bigger and faster,
  * which makes the fan look like a cone of mist.
+ *
+ * In the last third of its path a word dissolves like vapor: it fades, blurs, its letters drift apart
+ * and it lifts a little, as if a gust of wind undid it.
  */
 
 export interface RayConfig {
@@ -21,14 +24,21 @@ export interface SprayOptions {
   fontFamily?: string;
   /** When true: draws one still frame and never animates. */
   reducedMotion?: boolean;
+  /** How long one spray keeps shooting out new words, in seconds. Default 5. */
+  sprayDuration?: number;
+  /** Called every time a spray starts (e.g. to animate the pump). */
+  onSpray?: () => void;
 }
 
 export interface SprayEngine {
   start: () => void;
   pause: () => void;
   resume: () => void;
-  /** Makes the words shoot out faster for a moment (like pressing the pump). */
-  burst: (strength?: number) => void;
+  /**
+   * Starts a spray (like pressing the pump): words shoot out fast, keep coming for `sprayDuration`
+   * seconds, thin out at the end and stop. Words already in flight finish their trip and dissolve.
+   */
+  spray: (strength?: number) => void;
   resize: () => void;
   destroy: () => void;
 }
@@ -59,6 +69,19 @@ export function makeRays(colors: { ink: string; olive: string; amber: string }):
 
 const DEG = Math.PI / 180;
 const clamp = (v: number, lo: number, hi: number): number => Math.min(hi, Math.max(lo, v));
+const smoothstep = (t: number): number => t * t * (3 - 2 * t);
+
+/** Where (0..1 of the path) the words start to dissolve: the last third. */
+const DISSOLVE_START = 2 / 3;
+/** How far the dissolve start can vary per word (fraction of the path). */
+const DISSOLVE_JITTER = 0.1;
+
+/** Last seconds of a spray: new words come further and further apart, like the pressure dropping. */
+const TAPER_SECONDS = 0.9;
+/** At the very end of a spray the gap between new words is this many times the normal one. */
+const TAPER_GAP = 6;
+/** Words fly this much faster (0.4 = 40%) at the start of a spray; it eases back to normal speed by the end. */
+const SPRAY_SPEEDUP = 0.4;
 
 /** Tiny seeded random generator, so the layout is the same on every load. */
 function makeRandom(seed: number): () => number {
@@ -78,6 +101,8 @@ interface Word {
   d: number;
   /** Width in em (includes letter-spacing). */
   em: number;
+  /** 0..1, varies where each word starts to dissolve so the edge of the mist looks ragged. */
+  j: number;
 }
 
 interface Ray {
@@ -89,6 +114,8 @@ interface Ray {
   cos: number;
   sin: number;
   rot: number;
+  /** Distance at which this ray leaves the canvas. The dissolve is measured against it. */
+  dmax: number;
 }
 
 type LetterSpacingContext = CanvasRenderingContext2D & { letterSpacing?: string };
@@ -100,6 +127,10 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
   const family = options.fontFamily ?? '"Jost", ui-sans-serif, system-ui, sans-serif';
   const reduced = options.reducedMotion === true;
   const supportsSpacing = 'letterSpacing' in ctx;
+  // Canvas blur is optional: not every browser has it (Safari), and it is the costly part of the vapor
+  // effect. It is switched off for good if the frames stay slow (see `frame`).
+  let blurOn = 'filter' in ctx;
+  let slowFrames = 0;
   const spacingEm = supportsSpacing ? 0.08 : 0;
 
   let w = 0;
@@ -111,6 +142,8 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
   let sMax = 16;
   let baseSpeed = 95;
   let rays: Ray[] = [];
+  const sprayDuration = options.sprayDuration ?? 5;
+  let emitLeft = 0; // seconds of spraying left; 0 = the nozzle is quiet
   let boost = { a: 5, t: 0, tau: 0.9 }; // starts with a "psssht"
   let raf = 0;
   let last = 0;
@@ -155,6 +188,7 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
         cos: 0,
         sin: 0,
         rot: 0,
+        dmax: 1,
       });
     }
   };
@@ -191,7 +225,20 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
       r.cos = Math.cos(psi);
       r.sin = Math.sin(psi);
       r.rot = Math.PI - psi; // text reads toward the nozzle
+      r.dmax = exitDistance(r);
     });
+  };
+
+  /** Distance along the ray at which it leaves the canvas (same margin as inBounds). */
+  const exitDistance = (r: Ray): number => {
+    const m = 40;
+    const hits: number[] = [];
+    if (r.cos < 0) hits.push((-m - ox) / r.cos);
+    if (r.cos > 0) hits.push((w + m - ox) / r.cos);
+    if (r.sin > 0) hits.push((oy + m) / r.sin);
+    if (r.sin < 0) hits.push((oy - h - m) / r.sin);
+    const positive = hits.filter((d) => d > 0);
+    return positive.length > 0 ? Math.min(...positive) : Math.max(w, h);
   };
 
   const inBounds = (r: Ray, d: number): boolean => {
@@ -202,7 +249,13 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
 
   const step = (dt: number): void => {
     boost.t += dt;
-    const mult = 1 + boost.a * Math.exp(-boost.t / boost.tau);
+    // the pump's first push, plus a gentler push that lasts the whole spray and fades out with it
+    const pressure = clamp(emitLeft / sprayDuration, 0, 1);
+    const mult = (1 + boost.a * Math.exp(-boost.t / boost.tau)) * (1 + SPRAY_SPEEDUP * pressure);
+    const emitting = emitLeft > 0;
+    // spacing between new words: normal, then wider in the last moments of the spray
+    const taper = emitLeft < TAPER_SECONDS ? 1 + (1 - emitLeft / TAPER_SECONDS) * (TAPER_GAP - 1) : 1;
+    emitLeft = Math.max(0, emitLeft - dt);
     for (const r of rays) {
       for (const wd of r.words) {
         const f = clamp(wd.d / reach, 0, 1.3);
@@ -213,8 +266,8 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
       const newest = r.words[r.words.length - 1];
       const next = r.pool[r.cursor % r.pool.length];
       const len0 = measureEm(next) * sMin;
-      if (!newest || newest.d > len0 + sMin * 4) {
-        r.words.push({ text: next, d: 0, em: measureEm(next) });
+      if (emitting && (!newest || newest.d > (len0 + sMin * 4) * taper)) {
+        r.words.push({ text: next, d: 0, em: measureEm(next), j: ((r.cursor * 37) % 11) / 10 });
         r.cursor += 1;
       }
     }
@@ -229,12 +282,22 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
       ctx.fillStyle = r.color;
       for (const wd of r.words) {
         const size = sizeAt(wd.d);
+
+        // 0 = solid, 1 = gone. Starts in the last third of the path, a little earlier or later per word.
+        const start = DISSOLVE_START + (wd.j - 0.5) * DISSOLVE_JITTER;
+        const t = clamp((wd.d / r.dmax - start) / (1 - start), 0, 1);
+        if (t >= 1) continue;
+        const vapor = smoothstep(t);
+
         ctx.save();
-        ctx.translate(ox + wd.d * r.cos, oy - wd.d * r.sin);
+        // the vapor lifts a little as it disappears
+        ctx.translate(ox + wd.d * r.cos, oy - wd.d * r.sin - vapor * size * 1.4);
         ctx.rotate(r.rot);
-        ctx.globalAlpha = clamp(wd.d / fadeIn, 0, 1) * 0.92;
+        ctx.globalAlpha = clamp(wd.d / fadeIn, 0, 1) * 0.92 * (1 - vapor);
+        if (blurOn && vapor > 0.04) ctx.filter = `blur(${(vapor * 3.5).toFixed(1)}px)`;
         ctx.font = `500 ${size.toFixed(2)}px ${family}`;
-        if (supportsSpacing) ctx.letterSpacing = `${(spacingEm * size).toFixed(2)}px`;
+        // letters drift apart as the word turns to vapor
+        if (supportsSpacing) ctx.letterSpacing = `${(spacingEm * size * (1 + vapor * 2.4)).toFixed(2)}px`;
         ctx.fillText(wd.text, 0, 0);
         ctx.restore();
       }
@@ -244,8 +307,12 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
   const frame = (now: number): void => {
     if (!animating) return;
     raf = requestAnimationFrame(frame);
-    const dt = Math.min(0.05, (now - last) / 1000);
+    const elapsed = (now - last) / 1000;
+    const dt = Math.min(0.05, elapsed);
     last = now;
+    // under ~25 fps for a while: drop the blur, keep the rest of the effect
+    slowFrames = elapsed > 0.04 ? slowFrames + 1 : Math.max(0, slowFrames - 1);
+    if (slowFrames > 45) blurOn = false;
     step(dt);
     draw();
   };
@@ -254,8 +321,15 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
     rays = [];
     layout();
     boost = { a: 0, t: 0, tau: 1 };
+    emitLeft = Number.MAX_SAFE_INTEGER; // the still frame is a spray that never ends
     for (let i = 0; i < 420; i += 1) step(1 / 30);
     draw();
+  };
+
+  const spray = (strength = 3): void => {
+    emitLeft = sprayDuration;
+    boost = { a: strength, t: 0, tau: 0.5 };
+    options.onSpray?.();
   };
 
   const runLoop = (): void => {
@@ -279,6 +353,7 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
           renderStill();
         } else {
           layout();
+          spray(5); // the first, stronger "psssht" when the page loads
           runLoop();
         }
       };
@@ -291,9 +366,7 @@ export function createSpray(canvas: HTMLCanvasElement, options: SprayOptions): S
     resume() {
       if (ready) runLoop();
     },
-    burst(strength = 3) {
-      boost = { a: strength, t: 0, tau: 0.5 };
-    },
+    spray,
     resize() {
       if (!ready) return;
       if (reduced) renderStill();
