@@ -34,7 +34,7 @@ export default function FamilyShowcase() {
   return (
     <section aria-label="Fragrance families" className="relative">
       {/* Photos are stacked; only the active one is visible (300 ms fade). On mobile the photo sits on top. */}
-      <div className="relative aspect-[4/5] bg-bottle sm:aspect-[4/3] md:absolute md:inset-0 md:aspect-auto">
+      <div className="relative aspect-[4/3] bg-bottle md:absolute md:inset-0 md:aspect-auto">
         {FAMILIES.map((item, i) => (
           <img
             key={item.id}

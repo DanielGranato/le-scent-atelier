@@ -7,6 +7,7 @@ interface MenuSidebarProps {
   open: boolean
   /** Which content to show. Keep it set while closing so the content does not change mid-animation. */
   view: SidebarView
+  onViewChange: (view: SidebarView) => void
   onClose: () => void
 }
 
@@ -19,7 +20,7 @@ const links = [
   { label: 'About', to: '/about' },
 ]
 
-export default function MenuSidebar({ open, view, onClose }: MenuSidebarProps) {
+export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuSidebarProps) {
   const closeRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
@@ -96,6 +97,19 @@ export default function MenuSidebar({ open, view, onClose }: MenuSidebarProps) {
                   </Link>
                 </li>
               ))}
+              {/* mobile only: the header has no room for "+ Contact us", so it lives here */}
+              <li className="sm:hidden">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onViewChange('contact')
+                    closeRef.current?.focus()
+                  }}
+                  className="cursor-pointer text-[clamp(1.75rem,3vw,2.5rem)] leading-none tracking-(--tracking-heading) hover:underline underline-offset-8 decoration-1"
+                >
+                  + Contact us
+                </button>
+              </li>
             </ul>
           </nav>
         ) : (

@@ -8,8 +8,12 @@ export default function Home() {
   return (
     <main className="flex flex-1 flex-col">
       <SprayBanner title="Le Scent Atelier. Scent. Elevating Everyday.">
-      <p className="text-sm font-medium uppercase tracking-label">Scent. Elevating Everyday</p>
-      <Link to="/catalog" className="bg-ink px-5 py-2 text-base uppercase text-paper">
+      <p className="text-sm font-medium uppercase tracking-label">
+        Scent.
+        {/* two lines on phones keeps the box narrow; one line from sm up */}
+        <br className="sm:hidden" /> Elevating Everyday
+      </p>
+      <Link to="/catalog" className="whitespace-nowrap bg-ink px-5 py-2 text-base uppercase text-paper">
         Shop all
       </Link>
     </SprayBanner>

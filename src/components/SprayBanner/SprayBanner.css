@@ -110,24 +110,41 @@
 }
 
 @media (max-width: 639px) {
-  /* not enough room beside the bottle on small screens: back to the bottom-left corner */
+  /* Shorter hero on phones. Sizes and positions below use svh (screen height), not % of the banner,
+     so the bottle keeps its size when the banner height changes. */
+  .spray-banner {
+    height: 66vh;
+    height: 66svh;
+  }
   /* the stage disappears, so the bottle and the overlay position themselves against the banner */
   .spray-banner__stage {
     display: contents;
   }
+  /* floats in the middle of the hero, below the bottle (not attached to the bottom edge) */
   .spray-banner__overlay {
-    left: 0;
-    top: auto;
-    bottom: 0;
-    transform: none;
+    left: 50%;
+    top: 52vh;
+    top: 52svh;
+    bottom: auto;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 2 * var(--gutter, 1.25rem));
     white-space: normal;
+    /* horizontal: button on the left, text on the right, centered on the same line */
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.75rem 1rem;
   }
   .spray-banner__bottle {
     position: absolute;
-    right: 25%;
-    bottom: 40%;
+    right: 10%;
+    top: 23.8vh;
+    top: 23.8svh;
+    bottom: auto;
     width: auto;
-    height: 18.4%;
+    height: 18.7vh;
+    height: 18.7svh;
     aspect-ratio: 260 / 320;
   }
 }

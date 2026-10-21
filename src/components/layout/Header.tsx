@@ -20,15 +20,18 @@ export default function Header() {
 
   const closeSidebar = useCallback(() => {
     setSidebarOpen(false)
-    // give focus back to the button that opened the panel
-    const trigger = sidebarView === 'menu' ? menuButtonRef : contactButtonRef
+    // give focus back to the button that opened the panel; on mobile the contact button is
+    // hidden (offsetParent is null), so the contact view was reached through the menu
+    const contactVisible = contactButtonRef.current?.offsetParent != null
+    const trigger = sidebarView === 'contact' && contactVisible ? contactButtonRef : menuButtonRef
     trigger.current?.focus()
   }, [sidebarView])
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 h-[70px] bg-paper">
-      <div className="mx-auto grid h-full max-w-[1440px] grid-cols-[1fr_auto_1fr] items-center gap-3 px-(--gutter)">
-        <div className="justify-self-start">
+      {/* mobile: logo left, menu right ("+ Contact us" lives inside the menu); sm and up: 3 columns with the logo centered */}
+      <div className="mx-auto flex h-full max-w-[1440px] items-center justify-between gap-3 px-(--gutter) sm:grid sm:grid-cols-[1fr_auto_1fr]">
+        <div className="hidden justify-self-start sm:block">
           <button
             ref={contactButtonRef}
             type="button"
@@ -71,7 +74,12 @@ export default function Header() {
         </div>
       </div>
 
-      <MenuSidebar open={sidebarOpen} view={sidebarView} onClose={closeSidebar} />
+      <MenuSidebar
+        open={sidebarOpen}
+        view={sidebarView}
+        onViewChange={setSidebarView}
+        onClose={closeSidebar}
+      />
     </header>
   )
 }
