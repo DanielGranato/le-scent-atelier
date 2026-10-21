@@ -7,12 +7,22 @@ interface InputProps extends ComponentPropsWithRef<'input'> {
   /** Renders a <textarea> instead of an <input>. */
   multiline?: boolean
   rows?: number
+  /** Keeps the label for screen readers only (for compact fields like the newsletter). */
+  hideLabel?: boolean
 }
 
 const fieldClass =
   'w-full border border-ink bg-transparent px-4 py-[0.65rem] text-base text-ink placeholder:text-olive'
 
-export default function Input({ label, error, multiline, rows = 5, className, ...props }: InputProps) {
+export default function Input({
+  label,
+  error,
+  multiline,
+  rows = 5,
+  hideLabel,
+  className,
+  ...props
+}: InputProps) {
   const id = useId()
   const errorId = `${id}-error`
   const shared = {
@@ -24,7 +34,10 @@ export default function Input({ label, error, multiline, rows = 5, className, ..
 
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-xs font-medium uppercase tracking-(--tracking-label)">
+      <label
+        htmlFor={id}
+        className={cn('text-xs font-medium uppercase tracking-(--tracking-label)', hideLabel && 'sr-only')}
+      >
         {label}
       </label>
       {multiline ? (

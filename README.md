@@ -1,6 +1,6 @@
 # Le Scent Atelier
 
-> Perfume for small moments.
+> Scent. Elevating Everyday
 
 **[Live demo](https://danielgranato.github.io/le-scent-atelier/)** · Fictional niche-perfume storefront · React + TypeScript + Tailwind
 
