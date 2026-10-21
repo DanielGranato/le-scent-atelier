@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col">
-      <SprayBanner title="Le Scent Atelier. Scent. Elevating Everyday.">
+      <SprayBanner title="Le Scent Atelier. Scent. Elevating Everyday." backgroundImage="images/img01.jpg">
       <p className="text-sm font-medium uppercase tracking-label">
         Scent.
         {/* two lines on phones keeps the box narrow; one line from sm up */}

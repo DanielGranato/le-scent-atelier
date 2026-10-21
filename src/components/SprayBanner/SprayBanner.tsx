@@ -9,6 +9,8 @@ interface SprayBannerProps {
   /** Overlay content, e.g. a "Shop all" button. Shown at the bottom-left. */
   children?: ReactNode;
   className?: string;
+  /** Photo behind the spray, path relative to public/. Without it, the soft paper gradient is used. */
+  backgroundImage?: string;
 }
 
 /** One spray shoots words for this long (seconds), then the nozzle is quiet until the next one. */
@@ -22,7 +24,7 @@ function readToken(el: Element, name: string, fallback: string): string {
   return v || fallback;
 }
 
-export function SprayBanner({ title, children, className = '' }: SprayBannerProps) {
+export function SprayBanner({ title, children, className = '', backgroundImage }: SprayBannerProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nozzleRef = useRef<SVGCircleElement>(null);
   const engineRef = useRef<SprayEngine | null>(null);
@@ -90,8 +92,23 @@ export function SprayBanner({ title, children, className = '' }: SprayBannerProp
   const labelH = LABEL.height * labelScale;
 
   return (
-    <section className={`spray-banner${pressed ? ' is-pressed' : ''} ${className}`.trim()} aria-label={title}>
+    <section
+      className={`spray-banner${backgroundImage ? ' spray-banner--photo' : ''}${pressed ? ' is-pressed' : ''} ${className}`.trim()}
+      aria-label={title}
+    >
       <h1 className="spray-banner__sr">{title}</h1>
+      {backgroundImage ? (
+        <>
+          <img
+            src={`${import.meta.env.BASE_URL}${backgroundImage}`}
+            alt=""
+            fetchPriority="high"
+            className="spray-banner__photo"
+          />
+          {/* light veil so the dark words stay readable over the photo */}
+          <div className="spray-banner__veil" aria-hidden="true" />
+        </>
+      ) : null}
       <canvas ref={canvasRef} className="spray-banner__canvas" aria-hidden="true" />
 
       {/* bottle + overlay form one composition: the overlay is positioned from the bottle box */}

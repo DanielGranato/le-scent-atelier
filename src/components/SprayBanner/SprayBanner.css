@@ -12,10 +12,10 @@
     radial-gradient(ellipse 38% 55% at 78% 72%, color-mix(in srgb, var(--color-amber, #b5793b) 16%, transparent) 0%, transparent 70%),
     radial-gradient(ellipse 65% 80% at 14% 14%, rgb(255 255 255 / 0.65) 0%, transparent 65%),
     var(--color-paper, #f5f1ea);
-  /* 85% of the viewport height; svh keeps it stable on mobile browsers */
+  /* fills the visible screen: 100% of the viewport height minus the fixed header (70px); svh keeps it stable on mobile browsers */
   width: 100%;
-  height: 85vh;
-  height: 85svh;
+  height: calc(100vh - 70px);
+  height: calc(100svh - 70px);
   min-height: 340px;
 }
 
@@ -30,6 +30,34 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.10 0 0 0 0 0.09 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* With a photo: no paper gradient or grain, the photo is the background. */
+.spray-banner--photo {
+  background: var(--color-paper, #f5f1ea);
+}
+.spray-banner--photo::before {
+  display: none;
+}
+.spray-banner__photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/* stronger on the left, where the words fly, lighter toward the sunset on the right */
+.spray-banner__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-paper, #f5f1ea) 78%, transparent) 0%,
+    color-mix(in srgb, var(--color-paper, #f5f1ea) 55%, transparent) 55%,
+    color-mix(in srgb, var(--color-paper, #f5f1ea) 18%, transparent) 100%
+  );
+}
+
 .spray-banner__canvas {
   position: absolute;
   inset: 0;
@@ -42,8 +70,8 @@
 .spray-banner__stage {
   position: absolute;
   right: 29%;
-  bottom: 28%;
-  height: 28.8%;
+  bottom: 13%; /* 15% lower than before (was 28%) */
+  height: 33.12%; /* block 15% bigger (was 28.8%); the overlay is scaled by the same amount below */
   aspect-ratio: 260 / 320;
 }
 
@@ -81,7 +109,9 @@
      centered on the bottle and nudged down by a share of its height */
   left: 100%;
   top: 68%;
-  transform: translateY(-50%);
+  /* same 15% as the bottle, growing away from the bottle so the two stay side by side */
+  transform: translateY(-50%) scale(1.15);
+  transform-origin: left center;
   white-space: nowrap;
   z-index: 2;
   /* mostly opaque, blurred tile so the flying words stay out of the way behind the text
