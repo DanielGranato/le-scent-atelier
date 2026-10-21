@@ -1,4 +1,6 @@
 import { SprayBanner } from '../components/SprayBanner'
+import FamilyShowcase from '../features/products/components/FamilyShowcase'
+import FeaturedProducts from '../features/products/components/FeaturedProducts'
 
 import { Link } from 'react-router-dom'
 
@@ -11,6 +13,8 @@ export default function Home() {
         Shop all
       </Link>
     </SprayBanner>
+      <FeaturedProducts />
+      <FamilyShowcase />
     </main>
   )
 }

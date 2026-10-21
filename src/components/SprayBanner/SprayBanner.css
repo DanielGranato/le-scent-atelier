@@ -12,10 +12,10 @@
     radial-gradient(ellipse 38% 55% at 78% 72%, color-mix(in srgb, var(--color-amber, #b5793b) 16%, transparent) 0%, transparent 70%),
     radial-gradient(ellipse 65% 80% at 14% 14%, rgb(255 255 255 / 0.65) 0%, transparent 65%),
     var(--color-paper, #f5f1ea);
-  /* fills the viewport below the fixed header (70px); svh keeps it stable on mobile browsers */
+  /* 85% of the viewport height; svh keeps it stable on mobile browsers */
   width: 100%;
-  height: calc(100vh - 70px);
-  height: calc(100svh - 70px);
+  height: 85vh;
+  height: 85svh;
   min-height: 340px;
 }
 
