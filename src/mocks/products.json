@@ -1,0 +1,257 @@
+[
+  {
+    "id": "p01",
+    "slug": "small-hours",
+    "name": "Small Hours",
+    "descriptor": "Bergamot & black tea",
+    "family": "fresh",
+    "story": "The city at 4 a.m., a last cup of tea and windows still glowing across the street.",
+    "notes": { "top": ["Bergamot", "Lemon zest"], "heart": ["Black tea", "Jasmine tea"], "base": ["Musk", "Cedarwood"] },
+    "sizes": [
+      { "ml": 10, "price": 48, "inStock": true },
+      { "ml": 50, "price": 165, "inStock": true },
+      { "ml": 100, "price": 235, "inStock": true }
+    ],
+    "image": "images/products/small-hours.webp",
+    "isNew": false,
+    "isBestseller": true
+  },
+  {
+    "id": "p02",
+    "slug": "sunday-market",
+    "name": "Sunday Market",
+    "descriptor": "Green fig & basil",
+    "family": "fresh",
+    "story": "Crates of ripe figs, fresh herbs and paper bags at an open-air market.",
+    "notes": { "top": ["Basil", "Grapefruit"], "heart": ["Fig leaf", "Tomato leaf"], "base": ["Vetiver", "White musk"] },
+    "sizes": [
+      { "ml": 10, "price": 48, "inStock": true },
+      { "ml": 50, "price": 165, "inStock": true },
+      { "ml": 100, "price": 235, "inStock": false }
+    ],
+    "image": "images/products/sunday-market.webp",
+    "isNew": true,
+    "isBestseller": false
+  },
+  {
+    "id": "p03",
+    "slug": "rooftop-rain",
+    "name": "Rooftop Rain",
+    "descriptor": "Wet concrete & mint",
+    "family": "fresh",
+    "story": "The first summer storm hitting a hot rooftop after a long day.",
+    "notes": { "top": ["Mint", "Aldehydes"], "heart": ["Petrichor accord", "Violet leaf"], "base": ["Mineral musk", "Oakmoss"] },
+    "sizes": [
+      { "ml": 10, "price": 48, "inStock": true },
+      { "ml": 50, "price": 165, "inStock": true },
+      { "ml": 100, "price": 235, "inStock": true }
+    ],
+    "image": "images/products/rooftop-rain.webp",
+    "isNew": true,
+    "isBestseller": false
+  },
+  {
+    "id": "p04",
+    "slug": "linen-morning",
+    "name": "Linen Morning",
+    "descriptor": "Clean cotton & neroli",
+    "family": "fresh",
+    "story": "Sheets drying in the sun and a balcony door left open.",
+    "notes": { "top": ["Neroli", "Pear"], "heart": ["Cotton flower", "Orange blossom"], "base": ["Ambrette", "Clean musk"] },
+    "sizes": [
+      { "ml": 10, "price": 48, "inStock": true },
+      { "ml": 50, "price": 165, "inStock": true },
+      { "ml": 100, "price": 235, "inStock": true }
+    ],
+    "image": "images/products/linen-morning.webp",
+    "isNew": false,
+    "isBestseller": false
+  },
+  {
+    "id": "p05",
+    "slug": "closed-garden",
+    "name": "Closed Garden",
+    "descriptor": "Iris & white peach",
+    "family": "floral",
+    "story": "A private garden behind a stone wall, visited only in late afternoon.",
+    "notes": { "top": ["White peach", "Pink pepper"], "heart": ["Iris", "Rose"], "base": ["Suede", "Sandalwood"] },
+    "sizes": [
+      { "ml": 10, "price": 52, "inStock": true },
+      { "ml": 50, "price": 180, "inStock": true },
+      { "ml": 100, "price": 255, "inStock": true }
+    ],
+    "image": "images/products/closed-garden.webp",
+    "isNew": false,
+    "isBestseller": true
+  },
+  {
+    "id": "p06",
+    "slug": "night-florist",
+    "name": "Night Florist",
+    "descriptor": "Tuberose & green stems",
+    "family": "floral",
+    "story": "A flower shop after closing time, buckets of cut stems in the dark.",
+    "notes": { "top": ["Green stems", "Galbanum"], "heart": ["Tuberose", "Gardenia"], "base": ["Benzoin", "Musk"] },
+    "sizes": [
+      { "ml": 10, "price": 52, "inStock": true },
+      { "ml": 50, "price": 180, "inStock": true },
+      { "ml": 100, "price": 255, "inStock": true }
+    ],
+    "image": "images/products/night-florist.webp",
+    "isNew": true,
+    "isBestseller": false
+  },
+  {
+    "id": "p07",
+    "slug": "pressed-petals",
+    "name": "Pressed Petals",
+    "descriptor": "Dry rose & old paper",
+    "family": "floral",
+    "story": "Roses kept for years between the pages of a forgotten notebook.",
+    "notes": { "top": ["Saffron", "Raspberry"], "heart": ["Dried rose", "Geranium"], "base": ["Papyrus", "Patchouli"] },
+    "sizes": [
+      { "ml": 10, "price": 52, "inStock": true },
+      { "ml": 50, "price": 180, "inStock": false },
+      { "ml": 100, "price": 255, "inStock": true }
+    ],
+    "image": "images/products/pressed-petals.webp",
+    "isNew": false,
+    "isBestseller": false
+  },
+  {
+    "id": "p08",
+    "slug": "violet-hour",
+    "name": "Violet Hour",
+    "descriptor": "Violet & bitter orange",
+    "family": "floral",
+    "story": "Dusk on a café terrace, the sky turning purple over the rooftops.",
+    "notes": { "top": ["Bitter orange", "Cardamom"], "heart": ["Violet", "Heliotrope"], "base": ["Tonka bean", "Cashmere wood"] },
+    "sizes": [
+      { "ml": 10, "price": 52, "inStock": true },
+      { "ml": 50, "price": 180, "inStock": true },
+      { "ml": 100, "price": 255, "inStock": true }
+    ],
+    "image": "images/products/violet-hour.webp",
+    "isNew": false,
+    "isBestseller": false
+  },
+  {
+    "id": "p09",
+    "slug": "the-library",
+    "name": "The Library",
+    "descriptor": "Leather & old books",
+    "family": "woody",
+    "story": "Worn armchairs, wooden shelves and the smell of pages read a thousand times.",
+    "notes": { "top": ["Black pepper", "Clary sage"], "heart": ["Leather", "Paper accord"], "base": ["Cedarwood", "Vanilla"] },
+    "sizes": [
+      { "ml": 10, "price": 55, "inStock": true },
+      { "ml": 50, "price": 190, "inStock": true },
+      { "ml": 100, "price": 265, "inStock": true }
+    ],
+    "image": "images/products/the-library.webp",
+    "isNew": false,
+    "isBestseller": true
+  },
+  {
+    "id": "p10",
+    "slug": "cabin-fever",
+    "name": "Cabin Fever",
+    "descriptor": "Pine & woodsmoke",
+    "family": "woody",
+    "story": "A wooden cabin in winter, a fire that never quite goes out.",
+    "notes": { "top": ["Pine needles", "Juniper"], "heart": ["Birch tar", "Cypress"], "base": ["Guaiac wood", "Amber"] },
+    "sizes": [
+      { "ml": 10, "price": 55, "inStock": true },
+      { "ml": 50, "price": 190, "inStock": true },
+      { "ml": 100, "price": 265, "inStock": true }
+    ],
+    "image": "images/products/cabin-fever.webp",
+    "isNew": false,
+    "isBestseller": false
+  },
+  {
+    "id": "p11",
+    "slug": "studio-floor",
+    "name": "Studio Floor",
+    "descriptor": "Sawdust & sandalwood",
+    "family": "woody",
+    "story": "An architect's workshop: fresh-cut wood, pencil shavings and late ideas.",
+    "notes": { "top": ["Pencil shavings", "Ginger"], "heart": ["Sawdust accord", "Hinoki"], "base": ["Sandalwood", "Vetiver"] },
+    "sizes": [
+      { "ml": 10, "price": 55, "inStock": true },
+      { "ml": 50, "price": 190, "inStock": true },
+      { "ml": 100, "price": 265, "inStock": true }
+    ],
+    "image": "images/products/studio-floor.webp",
+    "isNew": true,
+    "isBestseller": false
+  },
+  {
+    "id": "p12",
+    "slug": "embers",
+    "name": "Embers",
+    "descriptor": "Smoked vanilla & clove",
+    "family": "amber",
+    "story": "The last glow of a bonfire long after everyone has gone to sleep.",
+    "notes": { "top": ["Clove", "Cinnamon"], "heart": ["Smoked vanilla", "Labdanum"], "base": ["Benzoin", "Oud accord"] },
+    "sizes": [
+      { "ml": 10, "price": 58, "inStock": true },
+      { "ml": 50, "price": 195, "inStock": true },
+      { "ml": 100, "price": 275, "inStock": true }
+    ],
+    "image": "images/products/embers.webp",
+    "isNew": false,
+    "isBestseller": true
+  },
+  {
+    "id": "p13",
+    "slug": "golden-hour",
+    "name": "Golden Hour",
+    "descriptor": "Honey & warm skin",
+    "family": "amber",
+    "story": "The last sunlight of the day on bare shoulders.",
+    "notes": { "top": ["Mandarin", "Pink pepper"], "heart": ["Honey", "Orange blossom"], "base": ["Ambergris accord", "Musk"] },
+    "sizes": [
+      { "ml": 10, "price": 58, "inStock": true },
+      { "ml": 50, "price": 195, "inStock": true },
+      { "ml": 100, "price": 275, "inStock": true }
+    ],
+    "image": "images/products/golden-hour.webp",
+    "isNew": false,
+    "isBestseller": false
+  },
+  {
+    "id": "p14",
+    "slug": "velvet-bar",
+    "name": "Velvet Bar",
+    "descriptor": "Rum & tonka",
+    "family": "amber",
+    "story": "A hidden bar downstairs, low lights, velvet seats and a slow drink.",
+    "notes": { "top": ["Dark rum", "Plum"], "heart": ["Tobacco leaf", "Cacao"], "base": ["Tonka bean", "Patchouli"] },
+    "sizes": [
+      { "ml": 10, "price": 58, "inStock": true },
+      { "ml": 50, "price": 195, "inStock": true },
+      { "ml": 100, "price": 275, "inStock": false }
+    ],
+    "image": "images/products/velvet-bar.webp",
+    "isNew": true,
+    "isBestseller": false
+  },
+  {
+    "id": "p15",
+    "slug": "spice-route",
+    "name": "Spice Route",
+    "descriptor": "Saffron & resin",
+    "family": "amber",
+    "story": "An old merchant's chest opened after a long journey.",
+    "notes": { "top": ["Saffron", "Cardamom"], "heart": ["Myrrh", "Rose"], "base": ["Frankincense", "Amber"] },
+    "sizes": [
+      { "ml": 10, "price": 58, "inStock": true },
+      { "ml": 50, "price": 195, "inStock": true },
+      { "ml": 100, "price": 275, "inStock": true }
+    ],
+    "image": "images/products/spice-route.webp",
+    "isNew": false,
+    "isBestseller": false
+  }
+]
