@@ -28,7 +28,7 @@ A front-end portfolio project: an online store for a made-up perfume brand, buil
 - [ ] Cart
 - [ ] Login and sign-up (mock)
 - [ ] Customizable sample set (pick 3 scents)
-- [ ] Deploy to GitHub Pages
+- [x] Deploy to GitHub Pages
 
 <!-- Tick the boxes as you finish each item. -->
 
