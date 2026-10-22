@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Carousel from '../../../components/ui/Carousel'
+import NavItem from '../../../components/ui/NavItem'
 import { getFeaturedProducts } from '../api'
 import type { Product } from '../types'
 import ProductCard from './ProductCard'
@@ -32,14 +32,7 @@ export default function FeaturedProducts() {
     <div className="pb-(--section-y) pt-[calc(var(--section-y)*1.5)]">
       <Carousel
         label="Perfume"
-        action={
-          <Link
-            to="/catalog"
-            className="text-xs font-semibold uppercase tracking-(--tracking-label) underline underline-offset-4"
-          >
-            Shop all
-          </Link>
-        }
+        action={<NavItem to="/catalog">Shop all</NavItem>}
       >
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />

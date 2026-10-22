@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import HoverLine from '../ui/HoverLine'
+import NavItem from '../ui/NavItem'
 
 export type SidebarView = 'menu' | 'contact'
 
@@ -88,13 +90,9 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
             <ul className="flex flex-col items-start gap-5">
               {links.map(({ label, to }) => (
                 <li key={label}>
-                  <Link
-                    to={to}
-                    onClick={onClose}
-                    className="text-[clamp(1.75rem,3vw,2.5rem)] leading-none tracking-(--tracking-heading) hover:underline underline-offset-8 decoration-1"
-                  >
+                  <NavItem to={to} size="lg" onClick={onClose}>
                     {label}
-                  </Link>
+                  </NavItem>
                 </li>
               ))}
               {/* mobile only: the header has no room for "+ Contact us", so it lives here */}
@@ -105,9 +103,10 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
                     onViewChange('contact')
                     closeRef.current?.focus()
                   }}
-                  className="cursor-pointer text-[clamp(1.75rem,3vw,2.5rem)] leading-none tracking-(--tracking-heading) hover:underline underline-offset-8 decoration-1"
+                  className="group relative cursor-pointer py-2 text-[clamp(1.75rem,3vw,2.5rem)] leading-none tracking-(--tracking-heading)"
                 >
                   + Contact us
+                  <HoverLine />
                 </button>
               </li>
             </ul>

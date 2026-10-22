@@ -1,10 +1,11 @@
 import { useCallback, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/logo-le-scent-atelier-horizontal.svg'
+import HoverLine from '../ui/HoverLine'
 import MenuSidebar, { type SidebarView } from './MenuSidebar'
 
 const labelClass =
-  'whitespace-nowrap text-xs font-medium sm:text-sm uppercase tracking-(--tracking-label) hover:underline underline-offset-4'
+  'group relative whitespace-nowrap py-2 text-xs font-medium sm:text-sm uppercase tracking-(--tracking-label)'
 
 export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -41,6 +42,7 @@ export default function Header() {
             aria-controls="site-menu"
           >
             + Contact us
+            <HoverLine />
           </button>
         </div>
 
@@ -70,6 +72,7 @@ export default function Header() {
               <path d="M2 5h16M2 10h16M2 15h16" />
             </svg>
             Menu
+            <HoverLine />
           </button>
         </div>
       </div>

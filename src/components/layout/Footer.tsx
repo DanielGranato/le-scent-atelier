@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import logo from '../../assets/logo-le-scent-atelier.svg'
 import NewsletterForm from '../../features/newsletter/NewsletterForm'
+import NavItem from '../ui/NavItem'
 
 // Most of these pages do not exist yet; they fall back to NotFound until they are built.
 const columns = [
@@ -38,9 +39,6 @@ const columns = [
   },
 ]
 
-const linkClass =
-  'text-xs font-semibold uppercase tracking-(--tracking-label) hover:underline underline-offset-4'
-
 export default function Footer() {
   return (
     <footer className="border-t border-ink/15 px-(--gutter) py-(--section-y)">
@@ -52,12 +50,10 @@ export default function Footer() {
                 <h2 className="text-xs font-medium uppercase tracking-(--tracking-label) text-olive">
                   {title}
                 </h2>
-                <ul className="flex flex-col gap-3">
+                <ul className="flex flex-col gap-1">
                   {links.map(({ label, to }) => (
                     <li key={label}>
-                      <Link to={to} className={linkClass}>
-                        {label}
-                      </Link>
+                      <NavItem to={to}>{label}</NavItem>
                     </li>
                   ))}
                 </ul>

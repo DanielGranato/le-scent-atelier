@@ -3,8 +3,7 @@
 Inspired by the *principles* of independent niche-perfume sites (D.S. & Durga was the main reference): stark, square, typographic, product-first. We take the rules, never the copy, photos, logo or the paid font (Sofia Pro). Everything here is original to this project.
 
 ## 1. Principles
-- Square and flat: zero border-radius, thin 1px lines, no shadows, no gradients.
-- Typography does the work: one sans family, tight negative tracking on big headings, small uppercase labels with wide tracking.
+- Square and flat: zero border-radius, thin 1px lines, no shadows, no gradients.- Typography does the work: one sans family, tight negative tracking on big headings, small uppercase labels with wide tracking.
 - Product first: edge-to-edge image grids with almost no gaps, minimal chrome around them.
 - Calm palette: paper background, near-black ink. Amber only as a rare accent.
 - Light theme only (no dark mode for now).
@@ -76,6 +75,9 @@ body { font-family: var(--font-sans); font-size: var(--text-base); line-height: 
 - Text link: uppercase 12px, underline, used for "Shop all".
 - Transition 150ms ease-out. Visible focus ring: 2px outline ink, offset 2px.
 
+**Link hover line** (`components/ui/HoverLine.tsx`, used by `NavItem`, the header buttons and the "Shop all" link): nothing is shown at rest. On hover (or keyboard focus) a 1px ink line draws under the text from left to right in 500 ms, ease-out, and stays while the pointer is over the link. When the pointer leaves, the line keeps moving to the right and disappears. With `prefers-reduced-motion` the line appears and disappears without movement. The line is solid ink, no gradient.
+**NavItem** (`components/ui/NavItem.tsx`, nav and footer links, built on React Router's `NavLink`): uppercase 13px, weight 500, tracking `label`, ink text, with the hover line above. A `lg` size (headline type) is used by the side menu. The current page is not marked with a line (screen readers still get `aria-current`).
+
 **Inputs**: 1px ink border, radius 0, padding 0.65rem 1rem, small 11–12px label above the field, gap 1rem between fields, error text in plain ink with a short message (do not rely on color alone).
 
 **Product card** (`ProductCard`):
@@ -101,6 +103,5 @@ body { font-family: var(--font-sans); font-size: var(--text-base); line-height: 
 
 ## 7. Do and don't
 - Do keep everything square, thin and typographic. Do keep lots of white space around text blocks.
-- Don't add shadows, gradients, rounded corners, emojis or dark mode.
-- Don't copy any real brand's text, images, logo or layout one-to-one. Don't use the font Sofia Pro.
+- Don't add shadows, gradients, rounded corners, emojis or dark mode.- Don't copy any real brand's text, images, logo or layout one-to-one. Don't use the font Sofia Pro.
 - Respect `prefers-reduced-motion`. Keep contrast AA for text.
