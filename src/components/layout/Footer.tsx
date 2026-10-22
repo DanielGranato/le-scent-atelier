@@ -17,7 +17,7 @@ const columns = [
     title: 'About',
     links: [
       { label: 'Our story', to: '/about' },
-      { label: 'Notes', to: '/about' },
+      { label: 'Notes', to: '/notes' },
     ],
   },
   {

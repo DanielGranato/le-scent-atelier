@@ -18,7 +18,7 @@ const links = [
   { label: 'New', to: '/catalog' },
   { label: 'Perfume', to: '/catalog' },
   { label: 'Sample sets', to: '/sample-sets' },
-  { label: 'Scent type', to: '/catalog' },
+  { label: 'Notes', to: '/notes' },
   { label: 'About', to: '/about' },
 ]
 

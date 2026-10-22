@@ -13,7 +13,7 @@ export default function AboutFamilies() {
       <ul className="grid grid-cols-2 gap-x-(--gutter) gap-y-6 lg:grid-cols-4">
         {FAMILIES.map((family) => (
           <li key={family.id}>
-            <Link to={`/catalog?family=${family.id}`} className="group flex flex-col gap-3">
+            <Link to="/notes" className="group flex flex-col gap-3">
               <div className="aspect-[4/5] overflow-hidden bg-bottle">
                 <img
                   src={`${import.meta.env.BASE_URL}${family.image}`}
