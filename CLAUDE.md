@@ -48,13 +48,15 @@ Each feature is self-contained so new ones (favorites, reviews) can be added as 
 - Golden Hour, Velvet Bar and Spice Route have a different cap on purpose. Idea: a small "Special editions" section.
 
 ## Brand and design
-- Name: Le Scent Atelier. Tone: modern, urban, conceptual, light and a little ironic. Not traditional luxury.
+- Name: Le Scent Atelier. Concept: "Elevating Everyday" (perfume that lifts ordinary moments one notch higher). Tone: modern, urban, conceptual, light and a little ironic. Not traditional luxury.
+- Copy angle: start from everyday scenes (tea at 4 a.m., Sunday market, summer rain), never yachts, deserts or movie stars. Use "Elevating everyday" as the tagline; do not use the old "Perfume for small moments" line.
+- Hero tagline on the home page may read "Scent. Elevating everyday" (a local choice in the hero only, not a brand rule).
 - Logo: stacked uppercase wordmark "LE SCENT / ATELIER" in Jost Light, wide letter-spacing. Files: `logo-le-scent-atelier.svg` (stacked, for home and footer) and `logo-le-scent-atelier-horizontal.svg` (header). They use `currentColor`.
 - Full visual rules (tokens, typography, components, page structure) live in @DESIGN.md. Follow it for every UI task; ask me before deviating.
 - UI copy in English. Mobile-first and responsive.
 
 ## Rules
-- No real brand names, logos or photos anywhere.
+- No real brand names, logos or photos anywhere. Images must be AI-generated or the author's own (the hero photo is AI-generated); keep them credited in the README.
 - No secrets, tokens or API keys in this file or in the repo.
 - Keep pages thin; put logic in features/hooks.
 - Run `npm run build` and fix type errors before saying a task is done.

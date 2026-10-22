@@ -58,7 +58,7 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
         role="dialog"
         aria-modal="true"
         aria-label={view === 'menu' ? 'Menu' : 'Contact us'}
-        className={`fixed inset-y-0 right-0 z-[60] w-full bg-paper transition-[translate,visibility] duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] md:w-[40%] ${
+        className={`fixed inset-y-0 right-0 z-[60] w-full bg-paper text-ink transition-[translate,visibility] duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] md:w-[40%] ${
           open ? 'visible translate-x-0' : 'invisible translate-x-full'
         }`}
       >
