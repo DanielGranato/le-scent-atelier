@@ -1,34 +1,26 @@
-import { IDEA, MOCK_IMAGES } from '../content'
-import AboutSection from './AboutSection'
+import { IDEA } from '../content'
 
+/**
+ * Photo on the left, text on the right (left-aligned). The margin is the height of the header on
+ * top, right and bottom; on the left it is the normal side margin (--gutter), so the photo lines up
+ * with the rest of the page. On phones the photo goes above the text.
+ */
 export default function AboutIdea() {
   return (
-    <AboutSection title={IDEA.title}>
-      <div className="flex max-w-[60ch] flex-col gap-4 text-lg">
-        {IDEA.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
-      </div>
+    <section className="mx-auto w-full max-w-[1440px] px-(--gutter) py-(--header-h) md:pr-(--header-h)">
+      <div className="grid items-center gap-8 md:grid-cols-2 md:gap-(--header-h)">
+        <img
+          src={`${import.meta.env.BASE_URL}${IDEA.image.src}`}
+          alt={IDEA.image.alt}
+          loading="lazy"
+          className="aspect-[3/4] w-full object-cover"
+        />
 
-      {/* MOCK images (our current bottles), to be replaced */}
-      <ul className="grid grid-cols-3 gap-x-(--gutter) gap-y-6">
-        {MOCK_IMAGES.moments.map((moment) => (
-          <li key={moment.slug} className="flex flex-col gap-3">
-            <div className="aspect-[4/5] overflow-hidden bg-bottle">
-              <img
-                src={`${import.meta.env.BASE_URL}${moment.image}`}
-                alt={`${moment.name} perfume bottle`}
-                loading="lazy"
-                className="size-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col gap-1 text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.04em]">{moment.name}</p>
-              <p className="text-sm text-olive">{moment.caption}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </AboutSection>
+        <div className="flex flex-col items-start gap-6 text-left">
+          <h2>{IDEA.title}</h2>
+          <p className="max-w-[44ch] text-lg">{IDEA.text}</p>
+        </div>
+      </div>
+    </section>
   )
 }

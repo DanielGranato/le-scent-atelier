@@ -23,6 +23,7 @@
   --gutter: 1.25rem; /* 20px page side padding */
   --section-y: 2.5rem; /* vertical space between sections (mobile) */
   --grid-gap: 2px; /* product grid gap */
+  --header-h: 70px; /* height of the fixed header */
 }
 
 @media (min-width: 1024px) {

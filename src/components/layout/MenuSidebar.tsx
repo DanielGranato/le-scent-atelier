@@ -58,12 +58,12 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
         role="dialog"
         aria-modal="true"
         aria-label={view === 'menu' ? 'Menu' : 'Contact us'}
-        className={`fixed inset-y-0 right-0 z-[60] w-full bg-paper text-ink transition-[translate,visibility] duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] md:w-[40%] ${
+        className={`fixed inset-y-0 right-0 z-[60] flex w-full flex-col bg-paper text-ink transition-[translate,visibility] duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] md:w-[40%] ${
           open ? 'visible translate-x-0' : 'invisible translate-x-full'
         }`}
       >
         {/* same height as the header, so the close button sits where "Menu" was */}
-        <div className="flex h-[70px] items-center justify-end px-(--gutter)">
+        <div className="flex h-[70px] shrink-0 items-center justify-end px-(--gutter)">
           <button
             ref={closeRef}
             type="button"
@@ -86,7 +86,8 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
         </div>
 
         {view === 'menu' ? (
-          <nav aria-label="Main" className="px-(--gutter) pt-10 md:pt-16">
+          <nav aria-label="Main" className="flex flex-1 flex-col justify-center px-(--gutter) pb-[70px]">
+            {/* centered in the height of the panel (pb balances the close bar at the top), links stay left-aligned */}
             <ul className="flex flex-col items-start gap-5">
               {links.map(({ label, to }) => (
                 <li key={label}>
@@ -112,7 +113,7 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
             </ul>
           </nav>
         ) : (
-          <div className="flex flex-col items-start gap-6 px-(--gutter) pt-10 md:pt-16">
+          <div className="flex flex-1 flex-col items-start justify-center gap-6 px-(--gutter) pb-[70px]">
             <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] leading-none">Contact Us</h2>
             <p className="max-w-[28ch] text-lg">Do you need further assistance?</p>
             <Link
