@@ -29,7 +29,7 @@ export default function FeaturedProducts() {
   if (!products) return null
 
   return (
-    <div className="pb-(--section-y) pt-[calc(var(--section-y)*1.5)]">
+    <div className="py-[calc(var(--section-y)*2.5)]">
       <Carousel
         label="Perfume"
         action={<NavItem to="/catalog">Shop all</NavItem>}

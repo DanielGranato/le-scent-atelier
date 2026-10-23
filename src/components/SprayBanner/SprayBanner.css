@@ -153,8 +153,8 @@
   /* floats in the middle of the hero, below the bottle (not attached to the bottom edge) */
   .spray-banner__overlay {
     left: 50%;
-    top: 52vh;
-    top: 52svh;
+    top: 66vh; /* bottle and box moved down together, 14 below the old 52 */
+    top: 66svh;
     bottom: auto;
     transform: translateX(-50%);
     width: max-content;
@@ -169,8 +169,8 @@
   .spray-banner__bottle {
     position: absolute;
     right: 10%;
-    top: 28.6vh; /* 20% lower than before (was 23.8) */
-    top: 28.6svh;
+    top: 42.6vh; /* same 14 lower as the box: the pair sits at the bottom of the hero */
+    top: 42.6svh;
     bottom: auto;
     width: auto;
     height: 18.7vh;

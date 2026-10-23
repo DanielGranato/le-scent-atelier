@@ -43,7 +43,7 @@ const columns = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-ink/15 pt-(--section-y)">
+    <footer className="border-t border-ink/15 pt-[calc(var(--section-y)*2)] lg:pt-(--section-y)">
       <div className="mx-auto w-full max-w-[1440px] px-(--gutter)">
         <div className="grid gap-10 lg:grid-cols-[1fr_minmax(0,22rem)] lg:grid-rows-[auto_1fr] lg:gap-x-16">
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:col-start-1 lg:row-start-1">
@@ -65,7 +65,7 @@ export default function Footer() {
 
           <section
             aria-labelledby="newsletter-title"
-            className="flex flex-col gap-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-end"
+            className="flex flex-col gap-16 lg:col-start-2 lg:gap-4 lg:row-span-2 lg:row-start-1 lg:self-end"
           >
             {/* big on purpose: uses the default h2 style (size, tight tracking) */}
             <h2 id="newsletter-title">Small mail, rarely. New scents and the occasional joke.</h2>
