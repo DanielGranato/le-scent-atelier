@@ -1,7 +1,7 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Input from '../../components/ui/Input'
-import { zodResolver } from '../../lib/zodResolver'
 import { newsletterSchema, type NewsletterValues } from './schemas'
 
 export default function NewsletterForm() {

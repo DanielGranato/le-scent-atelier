@@ -13,9 +13,9 @@ export const TEASER = {
   notesLabel: 'The notes so far',
   notes: ['Cedarwood', 'Iris', 'Honey', 'Vetiver'],
   image: {
-    // a resized WebP copy of special-edition.png (the original is 4.6 MB)
-    src: 'images/special-edition.webp',
-    alt: 'A Le Scent Atelier perfume bottle with the words cedarwood, iris, honey and vetiver floating in a golden mist',
+    // a WebP copy of special-edition2.png
+    src: 'images/special-edition2.webp',
+    alt: 'A Le Scent Atelier perfume bottle with a trail of golden mist rising beside it',
   },
 }
 

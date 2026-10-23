@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { useAuth } from '../../features/auth/useAuth'
+import { useSignOut } from '../../features/auth/useSignOut'
 import HoverLine from '../ui/HoverLine'
 import NavItem from '../ui/NavItem'
 
@@ -15,7 +17,6 @@ interface MenuSidebarProps {
 
 // Some of these routes do not exist yet; they fall back to NotFound until the pages are built.
 const links = [
-  { label: 'Login', to: '/login' },
   { label: 'Perfume', to: '/catalog' },
   { label: 'Notes', to: '/notes' },
   { label: 'About', to: '/about' },
@@ -23,6 +24,9 @@ const links = [
 
 export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuSidebarProps) {
   const closeRef = useRef<HTMLButtonElement>(null)
+  const { pathname, search } = useLocation()
+  const { user } = useAuth()
+  const signOut = useSignOut()
 
   useEffect(() => {
     if (!open) return undefined
@@ -88,6 +92,31 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
           <nav aria-label="Main" className="flex flex-1 flex-col justify-center px-(--gutter) pb-[70px]">
             {/* centered in the height of the panel (pb balances the close bar at the top), links stay left-aligned */}
             <ul className="flex flex-col items-start gap-5">
+              <li>
+                {user ? (
+                  <div className="flex flex-col items-start gap-1">
+                    <p className="text-xs font-medium uppercase tracking-(--tracking-label) text-olive">
+                      Signed in as {user.name}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClose()
+                        signOut()
+                      }}
+                      className="group relative cursor-pointer py-2 text-[clamp(1.75rem,3vw,2.5rem)] leading-none tracking-(--tracking-heading)"
+                    >
+                      Sign out
+                      <HoverLine />
+                    </button>
+                  </div>
+                ) : (
+                  // remembers this page, so after signing in the person comes back here
+                  <NavItem to="/login" size="lg" onClick={onClose} state={{ from: pathname + search }}>
+                    Sign in
+                  </NavItem>
+                )}
+              </li>
               {links.map(({ label, to }) => (
                 <li key={label}>
                   <NavItem to={to} size="lg" onClick={onClose}>

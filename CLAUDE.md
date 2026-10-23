@@ -11,7 +11,7 @@ Portfolio project: a fictional niche-perfume brand storefront. Front-end only (n
 - Vite + React + TypeScript (strict)
 - Tailwind CSS
 - React Router (use `HashRouter` so GitHub Pages works on reload)
-- React Hook Form + Zod (forms and validation)
+- React Hook Form + Zod (forms and validation), connected with `@hookform/resolvers` (`zodResolver`)
 - Context API: `AuthProvider` (mock auth in localStorage) and `CartProvider`
 - Custom hooks, e.g. `useSearch`, `useAuth`, `useCart`
 - Mock data from `src/mocks/products.json`, wrapped by a small `services/http.ts` so a real API can replace it later
@@ -22,7 +22,7 @@ Portfolio project: a fictional niche-perfume brand storefront. Front-end only (n
 public/images/products/   # <slug>.webp, 600x600
 src/
   app/          App.tsx, router.tsx, providers.tsx
-  pages/        Home, Catalog, ProductDetail, Cart, Login, NotFound (pages only compose; no business logic)
+  pages/        Home, Catalog, ProductDetail, Cart, Login, Register, NotFound (pages only compose; no business logic)
   features/
     auth/       AuthProvider, useAuth, schemas.ts (Zod), components/
     cart/       CartProvider, useCart, components/

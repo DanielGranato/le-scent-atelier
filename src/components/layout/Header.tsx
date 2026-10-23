@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/logo-le-scent-atelier-horizontal.svg'
+import AccountMenu from '../../features/auth/components/AccountMenu'
 import HoverLine from '../ui/HoverLine'
 import MenuSidebar, { type SidebarView } from './MenuSidebar'
 
@@ -85,7 +86,8 @@ export default function Header({ transparent = false }: HeaderProps) {
           />
         </Link>
 
-        <div className="justify-self-end">
+        <div className="flex items-center gap-5 justify-self-end sm:gap-6">
+          <AccountMenu />
           <button
             ref={menuButtonRef}
             type="button"

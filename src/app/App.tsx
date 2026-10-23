@@ -1,10 +1,13 @@
 import { HashRouter } from 'react-router-dom'
+import Providers from './providers'
 import AppRouter from './router'
 
 export default function App() {
   return (
-    <HashRouter>
-      <AppRouter />
-    </HashRouter>
+    <Providers>
+      <HashRouter>
+        <AppRouter />
+      </HashRouter>
+    </Providers>
   )
 }

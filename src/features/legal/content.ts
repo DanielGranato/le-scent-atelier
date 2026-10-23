@@ -60,11 +60,11 @@ export const LEGAL_SECTIONS: LegalSection[] = [
     items: [
       {
         heading: 'What we collect',
-        text: 'Nothing is sent to a server. The contact form and the newsletter field only check what you type in your own browser, show you a message, and forget it. Nothing is stored, sold or shared.',
+        text: 'Nothing is sent to a server. The contact form and the newsletter field only check what you type in your own browser, show you a message, and forget it. Nothing is stored on a server, sold or shared.',
       },
       {
         heading: 'Cookies and local storage',
-        text: "This site does not set cookies. If a future feature (like a demo cart or login) saves something, it stays in your browser's local storage, on your own device, and you can clear it at any time.",
+        text: "This site does not set cookies. If you create a demo account, your name, your email and a scrambled version of your password (a hash) are saved in your browser's local storage, on your own device, and nothing is sent anywhere. It is a demo, not real security: please do not use a password you use elsewhere. You can remove it at any time by clearing this site's data in your browser.",
       },
       {
         heading: 'Fonts and hosting',
