@@ -143,8 +143,8 @@
   /* Shorter hero on phones. Sizes and positions below use svh (screen height), not % of the banner,
      so the bottle keeps its size when the banner height changes. */
   .spray-banner {
-    height: 66vh;
-    height: 66svh;
+    height: 79.2vh; /* 20% taller than before (was 66) */
+    height: 79.2svh;
   }
   /* the stage disappears, so the bottle and the overlay position themselves against the banner */
   .spray-banner__stage {
@@ -169,8 +169,8 @@
   .spray-banner__bottle {
     position: absolute;
     right: 10%;
-    top: 23.8vh;
-    top: 23.8svh;
+    top: 28.6vh; /* 20% lower than before (was 23.8) */
+    top: 28.6svh;
     bottom: auto;
     width: auto;
     height: 18.7vh;

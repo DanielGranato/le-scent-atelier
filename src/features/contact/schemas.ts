@@ -5,7 +5,7 @@ export const MESSAGE_MAX = 500
 /** The topics of the select, in the order they are shown. */
 export const CONTACT_TOPICS = [
   { value: 'order', label: 'Order' },
-  { value: 'samples', label: 'Samples' },
+  { value: 'product', label: 'Product question' },
   { value: 'press', label: 'Press' },
   { value: 'other', label: 'Other' },
 ] as const
@@ -13,7 +13,7 @@ export const CONTACT_TOPICS = [
 export const contactSchema = z.object({
   name: z.string().trim().min(2, 'Please enter your name (at least 2 letters).'),
   email: z.string().trim().min(1, 'Please enter your email.').pipe(z.email('This email does not look right.')),
-  topic: z.enum(['order', 'samples', 'press', 'other'], { error: 'Please choose a topic.' }),
+  topic: z.enum(['order', 'product', 'press', 'other'], { error: 'Please choose a topic.' }),
   message: z
     .string()
     .trim()

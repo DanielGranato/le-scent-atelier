@@ -60,7 +60,6 @@ export const DISCLAIMER =
 
 // Other short texts from the brief. Not used on this page yet:
 //   Footer line:               "Elevating everyday."
-//   Announcement bar:          "Free samples with every order" (the site has no samples: rewrite before using)
 //   Alternative hero subtitle: "Four families. Fifteen everyday moments, one notch higher."
 
 /** The two photos of the hero, side by side, full screen (paths are relative to public/). */

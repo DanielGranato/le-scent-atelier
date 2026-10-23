@@ -65,9 +65,9 @@ body { font-family: var(--font-sans); font-size: var(--text-base); line-height: 
 - Section spacing: `--section-y`; gap inside a section stack: 2rem.
 
 ## 5. Components
-**Announcement bar**: ink background, paper text, 12px uppercase, tracking 0.08em, ~36px high, centered one-liner (e.g. "Free samples with every order").
+**Announcement bar**: ink background, paper text, 12px uppercase, tracking 0.08em, ~36px high, centered one-liner (e.g. "Perfume, one notch higher").
 
-**Header**: sticky, ~70px, paper background, 1px bottom border at 15% ink. Logo left (horizontal SVG), uppercase nav 13px (New, Perfume, Sample sets, Scent type, About), icons right (account, search, cart with count). Mobile: hamburger menu.
+**Header**: sticky, ~70px, paper background, 1px bottom border at 15% ink. Logo left (horizontal SVG), uppercase nav 13px (New, Perfume, Scent type, About), icons right (account, search, cart with count). Mobile: hamburger menu.
 
 **Buttons** (radius 0, 14px, uppercase, padding 0.6em 1.2em):
 - Primary: ink background, paper text. Hover: invert (paper bg, ink text, 1px ink border).
@@ -92,7 +92,7 @@ body { font-family: var(--font-sans); font-size: var(--text-base); line-height: 
 **Size selector** (PDP): three square buttons (10 / 50 / 100 mL) with 1px border; selected = ink background; out of stock = disabled with a line-through and reduced opacity. Price updates when the size changes.
 
 ## 6. Page structure
-**Home**: announcement bar → header → full-bleed hero (photo + display headline + two buttons: "Shop all", "Build your sample set") → "Perfume" carousel → sample-set builder banner (pick 3 scents) → scent-family tiles (Fresh, Floral, Woody, Amber) → "Special editions" strip (the 3 bottles with different caps) → one-line brand statement → newsletter (React Hook Form + Zod) → footer.
+**Home**: announcement bar → header → full-bleed hero (photo + display headline + one button: "Shop all") → "Perfume" carousel → scent-family tiles (Fresh, Floral, Woody, Amber) → "Special editions" strip (the 3 bottles with different caps) → one-line brand statement → newsletter (React Hook Form + Zod) → footer.
 
 **Catalog**: page title, family filter as uppercase text links (All, Fresh, Floral, Woody, Amber), search (`useSearch`), sort select, product grid.
 

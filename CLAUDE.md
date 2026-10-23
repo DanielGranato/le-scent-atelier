@@ -44,7 +44,6 @@ Each feature is self-contained so new ones (favorites, reviews) can be added as 
 - Scent families: `fresh | floral | woody | amber`. Sizes: 10, 50, 100 mL, each with its own price and `inStock`.
 - Product page: size selector changes the price; out-of-stock sizes are disabled.
 - Cards show `descriptor` (e.g. "Bergamot & black tea") and "From $X" via `getStartingPrice`.
-- Extra feature to build later: customizable sample set (pick 3 scents) using Context.
 - Image path in JSON is relative to `public/`, e.g. `images/products/small-hours.webp`.
 - Golden Hour, Velvet Bar and Spice Route have a different cap on purpose. Idea: a small "Special editions" section.
 

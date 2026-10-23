@@ -1,17 +1,18 @@
 import { HERO_IMAGES, INTRO } from '../content'
 
-/** Full-screen hero: two photos side by side, the title and the intro at the bottom left. */
+/** Full-screen hero: two photos side by side (one on phones), the title and the intro at the bottom left. */
 export default function AboutIntro() {
   return (
     <header className="relative flex min-h-svh flex-col justify-end overflow-hidden bg-ink text-paper">
-      <div className="absolute inset-0 grid grid-cols-2">
-        {HERO_IMAGES.map((image) => (
+      {/* phones show only the first photo; from md up the two sit side by side */}
+      <div className="absolute inset-0 grid md:grid-cols-2">
+        {HERO_IMAGES.map((image, index) => (
           <img
             key={image.src}
             src={`${import.meta.env.BASE_URL}${image.src}`}
             alt={image.alt}
             fetchPriority="high"
-            className="size-full object-cover"
+            className={index === 0 ? 'size-full object-cover' : 'hidden size-full object-cover md:block'}
           />
         ))}
       </div>
