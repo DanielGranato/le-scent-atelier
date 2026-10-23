@@ -8,6 +8,7 @@ import Legal from '../pages/Legal'
 import Login from '../pages/Login'
 import NotFound from '../pages/NotFound'
 import Notes from '../pages/Notes'
+import ProductDetail from '../pages/ProductDetail'
 import Register from '../pages/Register'
 import Shipping from '../pages/Shipping'
 import SpecialEditions from '../pages/SpecialEditions'
@@ -23,6 +24,7 @@ export default function AppRouter() {
         <Route path="/legal/:section?" element={<Legal />} />
         <Route path="/login" element={<Login />} />
         <Route path="/notes" element={<Notes />} />
+        <Route path="/product/:slug" element={<ProductDetail />} />
         <Route path="/register" element={<Register />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/special-editions" element={<SpecialEditions />} />
