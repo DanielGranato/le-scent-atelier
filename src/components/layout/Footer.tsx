@@ -46,7 +46,7 @@ export default function Footer() {
     <footer className="border-t border-ink/15 pt-[calc(var(--section-y)*2)] lg:pt-(--section-y)">
       <div className="mx-auto w-full max-w-[1440px] px-(--gutter)">
         <div className="grid gap-10 lg:grid-cols-[1fr_minmax(0,22rem)] lg:grid-rows-[auto_1fr] lg:gap-x-16">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:col-start-1 lg:row-start-1">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 border-b border-ink/15 pb-8 sm:grid-cols-4 lg:col-start-1 lg:row-start-1 lg:self-start">
             {columns.map(({ title, links }) => (
               <nav key={title} aria-label={title} className="flex flex-col gap-4">
                 <h2 className="text-xs font-medium uppercase tracking-(--tracking-label) text-olive">

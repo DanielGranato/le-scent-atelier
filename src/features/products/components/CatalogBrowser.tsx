@@ -42,11 +42,11 @@ export default function CatalogBrowser() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 px-(--gutter) lg:flex-row lg:items-end lg:justify-between">
+    <div className="flex flex-col gap-10 md:gap-6">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 px-(--gutter) lg:flex-row lg:items-end lg:justify-between lg:gap-6">
         <Filters value={family} onChange={setFamily} />
 
-        <div className="flex items-end gap-3">
+        <div className="flex items-end gap-4 md:gap-3">
           <div className="flex-1 sm:w-64 sm:flex-none">
             <Input
               label="Search perfumes"
