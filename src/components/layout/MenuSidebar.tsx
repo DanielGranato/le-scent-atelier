@@ -15,9 +15,8 @@ interface MenuSidebarProps {
 
 // Some of these routes do not exist yet; they fall back to NotFound until the pages are built.
 const links = [
-  { label: 'New', to: '/catalog' },
+  { label: 'Login', to: '/login' },
   { label: 'Perfume', to: '/catalog' },
-  { label: 'Sample sets', to: '/sample-sets' },
   { label: 'Notes', to: '/notes' },
   { label: 'About', to: '/about' },
 ]

@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
-import logo from '../../assets/logo-le-scent-atelier.svg'
 import NewsletterForm from '../../features/newsletter/NewsletterForm'
 import NavItem from '../ui/NavItem'
+
+// Read once, not on every render.
+const YEAR = new Date().getFullYear()
+
+// Width of the words "LE SCENT ATELIER" in Jost Light with 0.04em letter-spacing, in em (measured in the
+// browser, minus the spacing after the last letter). It lets the font size be set so the word fills the width.
+const WORDMARK_WIDTH_EM = 8.394
 
 // Most of these pages do not exist yet; they fall back to NotFound until they are built.
 const columns = [
@@ -9,8 +15,7 @@ const columns = [
     title: 'Shop',
     links: [
       { label: 'Perfume', to: '/catalog' },
-      { label: 'Sample sets', to: '/sample-sets' },
-      { label: 'Special editions', to: '/catalog' },
+      { label: 'Special editions', to: '/special-editions' },
     ],
   },
   {
@@ -24,8 +29,6 @@ const columns = [
     title: 'Info',
     links: [
       { label: 'Shipping', to: '/info' },
-      { label: 'Returns', to: '/info' },
-      { label: 'FAQ', to: '/info' },
       { label: 'Contact', to: '/contact' },
     ],
   },
@@ -34,17 +37,16 @@ const columns = [
     links: [
       { label: 'Terms', to: '/legal' },
       { label: 'Privacy', to: '/legal' },
-      { label: 'Cookies', to: '/legal' },
     ],
   },
 ]
 
 export default function Footer() {
   return (
-    <footer className="border-t border-ink/15 px-(--gutter) py-(--section-y)">
-      <div className="mx-auto flex max-w-[1440px] flex-col gap-12">
-        <div className="grid gap-10 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-16">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
+    <footer className="border-t border-ink/15 pt-(--section-y)">
+      <div className="mx-auto w-full max-w-[1440px] px-(--gutter)">
+        <div className="grid gap-10 lg:grid-cols-[1fr_minmax(0,22rem)] lg:grid-rows-[auto_1fr] lg:gap-x-16">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:col-start-1 lg:row-start-1">
             {columns.map(({ title, links }) => (
               <nav key={title} aria-label={title} className="flex flex-col gap-4">
                 <h2 className="text-xs font-medium uppercase tracking-(--tracking-label) text-olive">
@@ -61,24 +63,42 @@ export default function Footer() {
             ))}
           </div>
 
-          <section aria-labelledby="newsletter-title" className="flex flex-col gap-4">
+          <section
+            aria-labelledby="newsletter-title"
+            className="flex flex-col gap-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-end"
+          >
             {/* big on purpose: uses the default h2 style (size, tight tracking) */}
             <h2 id="newsletter-title">Small mail, rarely. New scents and the occasional joke.</h2>
             <NewsletterForm />
           </section>
-        </div>
 
-        <div className="flex flex-col gap-6 border-t border-ink/15 pt-8 md:flex-row md:items-end md:justify-between">
-          <Link to="/" aria-label="Le Scent Atelier, home">
-            <img src={logo} alt="" className="h-14 w-auto" />
-          </Link>
-
-          <div className="flex flex-col gap-1 text-sm md:items-end md:text-right">
+          {/* on desktop it sits at the bottom of the left column, level with the email field */}
+          <div className="flex flex-col gap-1 text-sm lg:col-start-1 lg:row-start-2 lg:self-end">
             <p>Portfolio project. Fictional brand, no real products are sold.</p>
-            <p className="text-olive">&copy; {new Date().getFullYear()} Le Scent Atelier</p>
+            <p className="text-olive">&copy; {YEAR} Le Scent Atelier</p>
           </div>
         </div>
+
+        {/* thin line under the email field, with the same space above and below */}
+        <div aria-hidden="true" className="mt-(--section-y) border-t border-ink/15" />
       </div>
+
+      {/* the name, as big as the space left by its margins (70px on desktop, 32px on phones) allows */}
+      <Link
+        to="/"
+        aria-label="Le Scent Atelier, home"
+        className="block overflow-hidden px-[clamp(2rem,5vw,4.375rem)] pb-[clamp(2rem,5vw,4.375rem)] pt-(--section-y)"
+      >
+        <div style={{ containerType: 'inline-size' }}>
+          <span
+            aria-hidden="true"
+            className="-mt-[0.07em] block whitespace-nowrap font-light uppercase leading-[0.9] tracking-[0.04em]"
+            style={{ fontSize: `calc(100cqw / ${WORDMARK_WIDTH_EM})` }}
+          >
+            Le Scent Atelier
+          </span>
+        </div>
+      </Link>
     </footer>
   )
 }

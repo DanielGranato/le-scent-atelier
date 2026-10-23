@@ -28,11 +28,8 @@ export default function AboutFamilies() {
         ))}
       </ul>
 
-      <div className="flex flex-col gap-3 sm:flex-row">
+      <div className="flex">
         <ButtonLink to="/catalog">{FAMILIES_INTRO.primaryButton}</ButtonLink>
-        <ButtonLink to="/sample-sets" variant="secondary">
-          {FAMILIES_INTRO.secondaryButton}
-        </ButtonLink>
       </div>
     </AboutSection>
   )

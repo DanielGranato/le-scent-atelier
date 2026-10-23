@@ -3,7 +3,7 @@
 export const ABOUT_META = {
   title: 'About | Le Scent Atelier',
   description:
-    'Le Scent Atelier makes perfume that elevates the everyday: honest notes, small batches and samples first. A fictional brand for a portfolio project.',
+    'Le Scent Atelier makes perfume that elevates the everyday: honest notes, small batches and a small size to start with. A fictional brand for a portfolio project.',
 }
 
 export const INTRO = {
@@ -45,7 +45,7 @@ export const PROMISES = {
   items: [
     { lead: 'Small batches.', text: 'Made in few bottles, so nothing sits on a shelf for years.' },
     { lead: 'Honest notes.', text: 'What we list is what you smell.' },
-    { lead: 'Samples first.', text: 'Try before you commit to a full bottle.' },
+    { lead: 'Start small.', text: 'Every scent comes in 10 mL, so you can live with it before you pick a bigger bottle.' },
   ],
 }
 
@@ -53,7 +53,6 @@ export const FAMILIES_INTRO = {
   title: 'Four families, one rule',
   text: 'Fresh, Floral, Woody and Amber. Not sure where to start? Start with the one that sounds like your Sunday.',
   primaryButton: 'Find your everyday',
-  secondaryButton: 'Build your sample set',
 }
 
 export const DISCLAIMER =
@@ -61,7 +60,7 @@ export const DISCLAIMER =
 
 // Other short texts from the brief. Not used on this page yet:
 //   Footer line:               "Elevating everyday."
-//   Announcement bar:          "Free samples with every order"
+//   Announcement bar:          "Free samples with every order" (the site has no samples: rewrite before using)
 //   Alternative hero subtitle: "Four families. Fifteen everyday moments, one notch higher."
 
 /** The two photos of the hero, side by side, full screen (paths are relative to public/). */
