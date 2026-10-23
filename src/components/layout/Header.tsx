@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/logo-le-scent-atelier-horizontal.svg'
 import AccountMenu from '../../features/auth/components/AccountMenu'
+import CartButton from '../../features/cart/components/CartButton'
 import ContactPanel from '../../features/contact/components/ContactPanel'
 import Drawer from '../ui/Drawer'
 import HoverLine from '../ui/HoverLine'
@@ -100,6 +101,7 @@ export default function Header({ transparent = false }: HeaderProps) {
 
         <div className="flex items-center gap-5 justify-self-end sm:gap-6">
           <AccountMenu />
+          <CartButton />
           <button
             ref={menuButtonRef}
             type="button"

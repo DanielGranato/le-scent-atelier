@@ -3,6 +3,7 @@ import Button from '../../../components/ui/Button'
 import NavItem from '../../../components/ui/NavItem'
 import { formatPrice } from '../../../lib/formatPrice'
 import { useDocumentMeta } from '../../../hooks/useDocumentMeta'
+import { useCart } from '../../cart/useCart'
 import { FAMILIES } from '../families'
 import type { Product, SizeMl } from '../types'
 import Disclosure from './Disclosure'
@@ -25,14 +26,13 @@ export default function ProductView({ product }: ProductViewProps) {
   // start with the first size that is in stock
   const firstInStock = product.sizes.find((size) => size.inStock)
   const [sizeMl, setSizeMl] = useState<SizeMl | null>(firstInStock?.ml ?? null)
-  const [added, setAdded] = useState(false)
+  const { addItem, openCart } = useCart()
 
   const selected = product.sizes.find((size) => size.ml === sizeMl) ?? null
   const family = FAMILIES.find((item) => item.id === product.family)
 
-  const chooseSize = (ml: SizeMl) => {
-    setSizeMl(ml)
-    setAdded(false)
+  const addToCart = () => {
+    if (selected && addItem(product, selected.ml)) openCart()
   }
 
   return (
@@ -65,26 +65,15 @@ export default function ProductView({ product }: ProductViewProps) {
 
           <p className="max-w-[44ch] text-base">{product.story}</p>
 
-          <SizeSelector sizes={product.sizes} value={sizeMl ?? product.sizes[0].ml} onChange={chooseSize} />
+          <SizeSelector sizes={product.sizes} value={sizeMl ?? product.sizes[0].ml} onChange={setSizeMl} />
 
           <p aria-live="polite" className="text-2xl font-medium">
             {selected ? formatPrice(selected.price) : 'Sold out'}
           </p>
 
-          <div className="flex flex-col gap-3">
-            <Button
-              disabled={!selected}
-              onClick={() => setAdded(true)}
-              className="w-full disabled:cursor-not-allowed"
-            >
-              {selected ? 'Add to cart' : 'Sold out'}
-            </Button>
-            {added ? (
-              <p role="status" className="text-sm text-olive">
-                This is a demo: the cart is not built yet, so nothing was added.
-              </p>
-            ) : null}
-          </div>
+          <Button disabled={!selected} onClick={addToCart} className="w-full disabled:cursor-not-allowed">
+            {selected ? 'Add to cart' : 'Sold out'}
+          </Button>
 
           <div className="border-b border-ink">
             <Disclosure title="Notes" defaultOpen>

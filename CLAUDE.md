@@ -25,7 +25,7 @@ src/
   pages/        Home, Catalog, ProductDetail, Cart, Login, Register, Contact, NotFound (pages only compose; no business logic)
   features/
     auth/       AuthProvider, useAuth, schemas.ts (Zod), components/
-    cart/       CartProvider, useCart, components/
+    cart/       CartProvider, cartContext, useCart, schemas.ts (Zod, checks localStorage), types.ts, components/ (CartButton)
     contact/    schemas.ts (Zod), components/ (ContactForm, ContactInfo)
     products/   api.ts, types.ts, hooks/, components/ (ProductCard, ProductGrid, Filters, SizeSelector)
   components/

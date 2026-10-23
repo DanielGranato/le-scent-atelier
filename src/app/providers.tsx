@@ -1,7 +1,11 @@
 import type { ReactNode } from 'react'
 import AuthProvider from '../features/auth/AuthProvider'
+import CartProvider from '../features/cart/CartProvider'
 
-// CartProvider will be added here later.
 export default function Providers({ children }: { children: ReactNode }) {
-  return <AuthProvider>{children}</AuthProvider>
+  return (
+    <AuthProvider>
+      <CartProvider>{children}</CartProvider>
+    </AuthProvider>
+  )
 }
