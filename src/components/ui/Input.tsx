@@ -11,6 +11,8 @@ interface InputProps extends ComponentPropsWithRef<'input'> {
   hideLabel?: boolean
   /** Something shown inside the field, on the right (e.g. the Show / Hide button of a password). */
   adornment?: ReactNode
+  /** Short text under the field, on the right (e.g. a character counter). */
+  hint?: string
 }
 
 const fieldClass =
@@ -24,15 +26,18 @@ export default function Input({
   rows = 5,
   hideLabel,
   adornment,
+  hint,
   className,
   ...props
 }: InputProps) {
   const id = useId()
   const errorId = `${id}-error`
+  const hintId = `${id}-hint`
+  const describedBy = [error ? errorId : null, hint ? hintId : null].filter(Boolean).join(' ')
   const shared = {
     id,
     'aria-invalid': error ? true : undefined,
-    'aria-describedby': error ? errorId : undefined,
+    'aria-describedby': describedBy || undefined,
     className: cn(fieldClass, adornment ? 'pr-20' : 'pr-4', className),
   }
 
@@ -52,10 +57,15 @@ export default function Input({
         )}
         {adornment ? <div className="absolute inset-y-0 right-0 flex items-center pr-3">{adornment}</div> : null}
       </div>
-      {error ? (
-        <p id={errorId} className="text-sm">
-          {error}
-        </p>
+      {error || hint ? (
+        <div className="flex items-start justify-between gap-4 text-sm">
+          {error ? <p id={errorId}>{error}</p> : <span />}
+          {hint ? (
+            <p id={hintId} className="ml-auto shrink-0 text-olive">
+              {hint}
+            </p>
+          ) : null}
+        </div>
       ) : null}
     </div>
   )

@@ -1,28 +1,25 @@
 import { useEffect, useRef } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../features/auth/useAuth'
 import { useSignOut } from '../../features/auth/useSignOut'
 import HoverLine from '../ui/HoverLine'
 import NavItem from '../ui/NavItem'
 
-export type SidebarView = 'menu' | 'contact'
-
 interface MenuSidebarProps {
   open: boolean
-  /** Which content to show. Keep it set while closing so the content does not change mid-animation. */
-  view: SidebarView
-  onViewChange: (view: SidebarView) => void
   onClose: () => void
+  /** "+ Contact us" (shown here on phones only): closes the menu and opens the contact drawer. */
+  onContact: () => void
 }
 
-// Some of these routes do not exist yet; they fall back to NotFound until the pages are built.
 const links = [
   { label: 'Perfume', to: '/catalog' },
+  { label: 'Special editions', to: '/special-editions' },
   { label: 'Notes', to: '/notes' },
   { label: 'About', to: '/about' },
 ]
 
-export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuSidebarProps) {
+export default function MenuSidebar({ open, onClose, onContact }: MenuSidebarProps) {
   const closeRef = useRef<HTMLButtonElement>(null)
   const { pathname, search } = useLocation()
   const { user } = useAuth()
@@ -31,7 +28,8 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
   useEffect(() => {
     if (!open) return undefined
 
-    closeRef.current?.focus()
+    // after a moment: on the first frame of the slide-in the panel is still `visibility: hidden`
+    const focusTimer = window.setTimeout(() => closeRef.current?.focus(), 50)
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
@@ -40,6 +38,7 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
     document.addEventListener('keydown', onKeyDown)
 
     return () => {
+      window.clearTimeout(focusTimer)
       document.body.style.overflow = previousOverflow
       document.removeEventListener('keydown', onKeyDown)
     }
@@ -60,7 +59,7 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
         id="site-menu"
         role="dialog"
         aria-modal="true"
-        aria-label={view === 'menu' ? 'Menu' : 'Contact us'}
+        aria-label="Menu"
         className={`fixed inset-y-0 right-0 z-[60] flex w-full flex-col bg-paper text-ink transition-[translate,visibility] duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] md:w-[40%] ${
           open ? 'visible translate-x-0' : 'invisible translate-x-full'
         }`}
@@ -71,7 +70,7 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
             ref={closeRef}
             type="button"
             onClick={onClose}
-            aria-label={view === 'menu' ? 'Close menu' : 'Close contact panel'}
+            aria-label="Close menu"
             className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-ink transition-colors duration-150 hover:bg-ink hover:text-paper"
           >
             <svg
@@ -88,71 +87,54 @@ export default function MenuSidebar({ open, view, onViewChange, onClose }: MenuS
           </button>
         </div>
 
-        {view === 'menu' ? (
-          <nav aria-label="Main" className="flex flex-1 flex-col justify-center px-(--gutter) pb-[70px]">
-            {/* centered in the height of the panel (pb balances the close bar at the top), links stay left-aligned */}
-            <ul className="flex flex-col items-start gap-5">
-              <li>
-                {user ? (
-                  <div className="flex flex-col items-start gap-1">
-                    <p className="text-xs font-medium uppercase tracking-(--tracking-label) text-olive">
-                      Signed in as {user.name}
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onClose()
-                        signOut()
-                      }}
-                      className="group relative cursor-pointer py-2 text-[clamp(1.75rem,3vw,2.5rem)] leading-none tracking-(--tracking-heading)"
-                    >
-                      Sign out
-                      <HoverLine />
-                    </button>
-                  </div>
-                ) : (
-                  // remembers this page, so after signing in the person comes back here
-                  <NavItem to="/login" size="lg" onClick={onClose} state={{ from: pathname + search }}>
-                    Sign in
-                  </NavItem>
-                )}
+        <nav aria-label="Main" className="flex flex-1 flex-col justify-center px-(--gutter) pb-[70px]">
+          {/* centered in the height of the panel (pb balances the close bar at the top), links stay left-aligned */}
+          <ul className="flex flex-col items-start gap-5">
+            <li>
+              {user ? (
+                <div className="flex flex-col items-start gap-1">
+                  <p className="text-xs font-medium uppercase tracking-(--tracking-label) text-olive">
+                    Signed in as {user.name}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose()
+                      signOut()
+                    }}
+                    className="group relative cursor-pointer py-2 text-[clamp(1.75rem,3vw,2.5rem)] leading-none tracking-(--tracking-heading)"
+                  >
+                    Sign out
+                    <HoverLine />
+                  </button>
+                </div>
+              ) : (
+                // remembers this page, so after signing in the person comes back here
+                <NavItem to="/login" size="lg" onClick={onClose} state={{ from: pathname + search }}>
+                  Sign in
+                </NavItem>
+              )}
+            </li>
+            {links.map(({ label, to }) => (
+              <li key={label}>
+                <NavItem to={to} size="lg" onClick={onClose}>
+                  {label}
+                </NavItem>
               </li>
-              {links.map(({ label, to }) => (
-                <li key={label}>
-                  <NavItem to={to} size="lg" onClick={onClose}>
-                    {label}
-                  </NavItem>
-                </li>
-              ))}
-              {/* mobile only: the header has no room for "+ Contact us", so it lives here */}
-              <li className="sm:hidden">
-                <button
-                  type="button"
-                  onClick={() => {
-                    onViewChange('contact')
-                    closeRef.current?.focus()
-                  }}
-                  className="group relative cursor-pointer py-2 text-[clamp(1.75rem,3vw,2.5rem)] leading-none tracking-(--tracking-heading)"
-                >
-                  + Contact us
-                  <HoverLine />
-                </button>
-              </li>
-            </ul>
-          </nav>
-        ) : (
-          <div className="flex flex-1 flex-col items-start justify-center gap-6 px-(--gutter) pb-[70px]">
-            <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] leading-none">Contact Us</h2>
-            <p className="max-w-[28ch] text-lg">Do you need further assistance?</p>
-            <Link
-              to="/contact"
-              onClick={onClose}
-              className="border border-ink bg-ink px-5 py-2.5 text-base uppercase tracking-(--tracking-label) text-paper transition-colors duration-150 hover:bg-paper hover:text-ink"
-            >
-              Get in Contact with Us
-            </Link>
-          </div>
-        )}
+            ))}
+            {/* mobile only: the header has no room for "+ Contact us", so it lives here */}
+            <li className="sm:hidden">
+              <button
+                type="button"
+                onClick={onContact}
+                className="group relative cursor-pointer py-2 text-[clamp(1.75rem,3vw,2.5rem)] leading-none tracking-(--tracking-heading)"
+              >
+                + Contact us
+                <HoverLine />
+              </button>
+            </li>
+          </ul>
+        </nav>
       </aside>
     </>
   )

@@ -22,10 +22,11 @@ Portfolio project: a fictional niche-perfume brand storefront. Front-end only (n
 public/images/products/   # <slug>.webp, 600x600
 src/
   app/          App.tsx, router.tsx, providers.tsx
-  pages/        Home, Catalog, ProductDetail, Cart, Login, Register, NotFound (pages only compose; no business logic)
+  pages/        Home, Catalog, ProductDetail, Cart, Login, Register, Contact, NotFound (pages only compose; no business logic)
   features/
     auth/       AuthProvider, useAuth, schemas.ts (Zod), components/
     cart/       CartProvider, useCart, components/
+    contact/    schemas.ts (Zod), components/ (ContactForm, ContactInfo)
     products/   api.ts, types.ts, hooks/, components/ (ProductCard, ProductGrid, Filters, SizeSelector)
   components/
     ui/         Button, Input, Badge, Modal

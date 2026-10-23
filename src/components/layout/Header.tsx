@@ -2,8 +2,10 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/logo-le-scent-atelier-horizontal.svg'
 import AccountMenu from '../../features/auth/components/AccountMenu'
+import ContactPanel from '../../features/contact/components/ContactPanel'
+import Drawer from '../ui/Drawer'
 import HoverLine from '../ui/HoverLine'
-import MenuSidebar, { type SidebarView } from './MenuSidebar'
+import MenuSidebar from './MenuSidebar'
 
 const labelClass =
   'group relative whitespace-nowrap py-2 text-xs font-medium sm:text-sm uppercase tracking-(--tracking-label)'
@@ -35,25 +37,34 @@ export default function Header({ transparent = false }: HeaderProps) {
 
   const overPhoto = transparent && !pastFirstScreen
 
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  // stays set after closing, so the panel content does not change during the slide-out
-  const [sidebarView, setSidebarView] = useState<SidebarView>('menu')
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
+  // changes on every opening, so the contact form always starts empty (the old one leaves during the slide-out)
+  const [contactKey, setContactKey] = useState(0)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const contactButtonRef = useRef<HTMLButtonElement>(null)
+  // where focus goes when the contact drawer closes
+  const contactReturnRef = useRef<HTMLElement | null>(null)
 
-  const openSidebar = (view: SidebarView) => {
-    setSidebarView(view)
-    setSidebarOpen(true)
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false)
+    menuButtonRef.current?.focus()
+  }, [])
+
+  const openContact = () => {
+    // On phones the "+ Contact us" button is hidden (offsetParent is null): the way in is the menu.
+    const buttonVisible = contactButtonRef.current?.offsetParent != null
+    contactReturnRef.current = buttonVisible ? contactButtonRef.current : menuButtonRef.current
+    setContactKey((key) => key + 1)
+    setContactOpen(true)
   }
 
-  const closeSidebar = useCallback(() => {
-    setSidebarOpen(false)
-    // give focus back to the button that opened the panel; on mobile the contact button is
-    // hidden (offsetParent is null), so the contact view was reached through the menu
-    const contactVisible = contactButtonRef.current?.offsetParent != null
-    const trigger = sidebarView === 'contact' && contactVisible ? contactButtonRef : menuButtonRef
-    trigger.current?.focus()
-  }, [sidebarView])
+  const openContactFromMenu = () => {
+    setMenuOpen(false) // no focus change here: the drawer takes focus right away
+    openContact()
+  }
+
+  const closeContact = useCallback(() => setContactOpen(false), [])
 
   return (
     <header
@@ -67,10 +78,11 @@ export default function Header({ transparent = false }: HeaderProps) {
           <button
             ref={contactButtonRef}
             type="button"
-            onClick={() => openSidebar('contact')}
+            onClick={openContact}
             className={`${labelClass} cursor-pointer`}
-            aria-expanded={sidebarOpen && sidebarView === 'contact'}
-            aria-controls="site-menu"
+            aria-haspopup="dialog"
+            aria-expanded={contactOpen}
+            aria-controls="contact-drawer"
           >
             + Contact us
             <HoverLine />
@@ -91,10 +103,10 @@ export default function Header({ transparent = false }: HeaderProps) {
           <button
             ref={menuButtonRef}
             type="button"
-            onClick={() => openSidebar('menu')}
+            onClick={() => setMenuOpen(true)}
             className={`${labelClass} flex cursor-pointer items-center gap-2`}
             aria-label="Open menu"
-            aria-expanded={sidebarOpen && sidebarView === 'menu'}
+            aria-expanded={menuOpen}
             aria-controls="site-menu"
           >
             <svg
@@ -114,12 +126,18 @@ export default function Header({ transparent = false }: HeaderProps) {
         </div>
       </div>
 
-      <MenuSidebar
-        open={sidebarOpen}
-        view={sidebarView}
-        onViewChange={setSidebarView}
-        onClose={closeSidebar}
-      />
+      <MenuSidebar open={menuOpen} onClose={closeMenu} onContact={openContactFromMenu} />
+
+      <Drawer
+        id="contact-drawer"
+        open={contactOpen}
+        onClose={closeContact}
+        title="Contact us"
+        closeLabel="Close contact form"
+        returnFocusRef={contactReturnRef}
+      >
+        <ContactPanel key={contactKey} />
+      </Drawer>
     </header>
   )
 }
