@@ -28,7 +28,7 @@ const columns = [
   {
     title: 'Info',
     links: [
-      { label: 'Shipping', to: '/info' },
+      { label: 'Shipping', to: '/shipping' },
       { label: 'Contact', to: '/contact' },
     ],
   },

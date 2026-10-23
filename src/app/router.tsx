@@ -9,6 +9,7 @@ import Login from '../pages/Login'
 import NotFound from '../pages/NotFound'
 import Notes from '../pages/Notes'
 import Register from '../pages/Register'
+import Shipping from '../pages/Shipping'
 import SpecialEditions from '../pages/SpecialEditions'
 
 export default function AppRouter() {
@@ -23,6 +24,7 @@ export default function AppRouter() {
         <Route path="/login" element={<Login />} />
         <Route path="/notes" element={<Notes />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/shipping" element={<Shipping />} />
         <Route path="/special-editions" element={<SpecialEditions />} />
         <Route path="*" element={<NotFound />} />
       </Route>
