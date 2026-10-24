@@ -25,7 +25,7 @@ A front-end portfolio project: an online store for a made-up perfume brand, buil
 - [x] Home with spray banner
 - [x] Catalog with family filter and search
 - [x] Product page with size selector
-- [ ] Cart
+- [x] Cart
 - [x] Login and sign-up (mock)
 - [x] Deploy to GitHub Pages
 

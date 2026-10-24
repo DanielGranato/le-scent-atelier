@@ -20,9 +20,11 @@ interface HeaderProps {
    * so the text never lands on a light background.
    */
   transparent?: boolean
+  /** Dark theme (checkout): the logo, which is drawn in black, is turned light. */
+  dark?: boolean
 }
 
-export default function Header({ transparent = false }: HeaderProps) {
+export default function Header({ transparent = false, dark = false }: HeaderProps) {
   const [pastFirstScreen, setPastFirstScreen] = useState(false)
 
   useEffect(() => {
@@ -95,7 +97,7 @@ export default function Header({ transparent = false }: HeaderProps) {
           <img
             src={logo}
             alt=""
-            className={`h-4 w-auto sm:h-6 ${overPhoto ? 'brightness-0 invert' : ''}`}
+            className={`h-4 w-auto sm:h-6 ${overPhoto || dark ? 'brightness-0 invert' : ''}`}
           />
         </Link>
 

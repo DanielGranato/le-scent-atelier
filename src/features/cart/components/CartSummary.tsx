@@ -1,12 +1,10 @@
-import { useState } from 'react'
-import Button from '../../../components/ui/Button'
+import ButtonLink from '../../../components/ui/ButtonLink'
 import { formatPrice } from '../../../lib/formatPrice'
 import { useCart } from '../useCart'
 
-/** Subtotal and the Checkout button. There is no back end, so Checkout only says so. */
+/** Subtotal and the Checkout button, which leads to the (fictional) checkout. */
 export default function CartSummary() {
-  const { subtotal } = useCart()
-  const [message, setMessage] = useState('')
+  const { subtotal, closeCart } = useCart()
 
   return (
     <section aria-label="Order summary" className="flex flex-col gap-4 border-t border-ink pt-6">
@@ -15,13 +13,10 @@ export default function CartSummary() {
         <p className="text-2xl font-medium">{formatPrice(subtotal)}</p>
       </div>
       <p className="text-sm text-olive">Shipping and taxes calculated at checkout.</p>
-      <Button onClick={() => setMessage('This is a demo: checkout is not available.')} className="w-full">
+      {/* closes the drawer when it is used from there; on the cart page closeCart changes nothing */}
+      <ButtonLink to="/checkout" onClick={closeCart} className="w-full">
         Checkout
-      </Button>
-      {/* always in the page, so the text is announced when it appears */}
-      <p role="status" className="text-sm text-olive">
-        {message}
-      </p>
+      </ButtonLink>
     </section>
   )
 }

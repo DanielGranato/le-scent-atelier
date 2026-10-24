@@ -22,10 +22,11 @@ Portfolio project: a fictional niche-perfume brand storefront. Front-end only (n
 public/images/products/   # <slug>.webp, 600x600
 src/
   app/          App.tsx, router.tsx, providers.tsx
-  pages/        Home, Catalog, ProductDetail, Cart, Login, Register, Contact, NotFound (pages only compose; no business logic)
+  pages/        Home, Catalog, ProductDetail, Cart, Checkout, OrderConfirmation, Login, Register, Contact, NotFound (pages only compose; no business logic)
   features/
     auth/       AuthProvider, useAuth, schemas.ts (Zod), components/
     cart/       CartProvider, cartContext, useCart, schemas.ts (Zod, checks localStorage), types.ts, components/ (CartButton)
+    checkout/   schemas.ts (Zod), api.ts (ViaCEP lookup), hooks/ (useCepLookup, useOrderTotals), components/ (CheckoutForm, OrderSummary)
     contact/    schemas.ts (Zod), components/ (ContactForm, ContactInfo)
     products/   api.ts, types.ts, hooks/, components/ (ProductCard, ProductGrid, Filters, SizeSelector)
   components/
@@ -53,6 +54,7 @@ Each feature is self-contained so new ones (favorites, reviews) can be added as 
 - Hero tagline on the home page may read "Scent. Elevating everyday" (a local choice in the hero only, not a brand rule).
 - Logo: stacked uppercase wordmark "LE SCENT / ATELIER" in Jost Light, wide letter-spacing. Files: `logo-le-scent-atelier.svg` (stacked, for home and footer) and `logo-le-scent-atelier-horizontal.svg` (header). They use `currentColor`.
 - Full visual rules (tokens, typography, components, page structure) live in @DESIGN.md. Follow it for every UI task; ask me before deviating.
+- Checkout exception: `/checkout` and `/checkout/success` use a declared "cinematic dark" theme (charcoal #151311, surface #1F1C19, amber accents, soft gold #D8B77A highlights), scoped with `data-theme="cinematic"`. All other pages stay light. Details in DESIGN.md.
 - UI copy in English. Mobile-first and responsive.
 
 ## Rules

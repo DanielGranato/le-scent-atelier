@@ -1,3 +1,5 @@
+import { EXPRESS_SHIPPING, STANDARD_SHIPPING } from './rates'
+
 // Copy for the Shipping page. The brand is fictional: these are example terms, nothing is really shipped.
 
 export const SHIPPING_META = {
@@ -17,8 +19,12 @@ export const OPTIONS = {
   caption: 'Delivery options, with time and cost',
   columns: { method: 'Method', time: 'Time', cost: 'Cost' },
   rows: [
-    { method: 'Standard', time: '5 to 8 business days', cost: '$6, free over $120' },
-    { method: 'Express', time: '2 to 3 business days', cost: '$14' },
+    {
+      method: 'Standard',
+      time: '5 to 8 business days',
+      cost: `$${STANDARD_SHIPPING.cost}, free over $${STANDARD_SHIPPING.freeOver}`,
+    },
+    { method: 'Express', time: '2 to 3 business days', cost: `$${EXPRESS_SHIPPING.cost}` },
   ],
 }
 

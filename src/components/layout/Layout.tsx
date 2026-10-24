@@ -10,11 +10,16 @@ const TRANSPARENT_HEADER_PATHS = ['/about']
 export default function Layout() {
   const { pathname } = useLocation()
   const transparentHeader = TRANSPARENT_HEADER_PATHS.includes(pathname)
+  // the checkout has its own dark theme (see "cinematic" in styles/index.css)
+  const dark = pathname === '/checkout' || pathname.startsWith('/checkout/')
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div
+      data-theme={dark ? 'cinematic' : undefined}
+      className={`flex min-h-screen flex-col ${dark ? 'bg-paper text-ink' : ''}`}
+    >
       <ScrollToTop />
-      <Header transparent={transparentHeader} />
+      <Header transparent={transparentHeader} dark={dark} />
       <div className={`flex flex-1 flex-col ${transparentHeader ? '' : 'pt-[70px]'}`}>
         <Outlet />
       </div>

@@ -89,6 +89,30 @@
   }
 }
 
+/*
+ * "Cinematic dark" theme, only for /checkout and /checkout/success (a declared exception to DESIGN.md).
+ * It does not touch the global tokens: inside the wrapper the same token names point to dark values, so every
+ * component (header, footer, inputs, buttons) switches on its own. --surface and --gold are used only here.
+ */
+[data-theme='cinematic'] {
+  --color-paper: #151311; /* charcoal background */
+  --color-ink: #f5f1ea; /* text and lines (the old paper) */
+  --color-olive: #a8a39a; /* muted text, about 7:1 on charcoal */
+  --surface: #1f1c19; /* panels */
+  --gold: #d8b77a; /* highlights, e.g. the total */
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+html:has([data-theme='cinematic']) {
+  background: #151311; /* so the overscroll area is dark too */
+}
+[data-theme='cinematic'] :focus-visible {
+  outline-color: var(--color-amber);
+}
+[data-theme='cinematic'] [aria-invalid='true'] {
+  border-color: var(--gold);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

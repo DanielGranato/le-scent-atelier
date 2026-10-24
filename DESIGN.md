@@ -100,10 +100,18 @@ body { font-family: var(--font-sans); font-size: var(--text-base); line-height: 
 
 **Cart / Login / Register**: single centered column, max ~480px, same input and button styles.
 
+**Checkout (`/checkout`, `/checkout/success`)**: two columns on desktop (form left, sticky order summary right); on phones the summary comes first and folds. Big display title. See the exception below.
+
 **Footer**: columns Shop / About / Info / Legal, links 12px bold uppercase tracking 0.08em, logo (stacked), fictional-project disclaimer.
+
+## Checkout exception (cinematic dark)
+A deliberate, declared exception, like the About hero. Only the two checkout routes use a dark theme; every other page stays light. It is scoped with `data-theme="cinematic"` on the Layout wrapper (`src/styles/index.css`); the global tokens are not changed, inside the wrapper the same token names simply point to dark values, so header, footer, inputs and buttons adapt by themselves.
+- Charcoal background `#151311` (as `paper`), surface `#1F1C19` (panels), text and lines in the old paper `#F5F1EA` (1px lines at 15% opacity), muted text `#A8A39A`.
+- Amber `#B5793B` for accents and the focus ring (about 5.4:1 on charcoal). Soft gold `#D8B77A` only for highlights such as the total and the order number.
+- Everything else still applies: square (radius 0), flat (no shadows, no gradients), Jost, uppercase labels.
 
 ## 7. Do and don't
 - Do keep everything square, thin and typographic. Do keep lots of white space around text blocks.
-- Don't add shadows, gradients, rounded corners, emojis or dark mode.
+- Don't add shadows, gradients, rounded corners, emojis or dark mode (the only dark theme is the checkout exception above).
 - Don't copy any real brand's text, images, logo or layout one-to-one. Don't use the font Sofia Pro.
 - Respect `prefers-reduced-motion`. Keep contrast AA for text.
