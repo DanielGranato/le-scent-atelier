@@ -104,8 +104,11 @@ body { font-family: var(--font-sans); font-size: var(--text-base); line-height: 
 
 **Footer**: columns Shop / About / Info / Legal, links 12px bold uppercase tracking 0.08em, logo (stacked), fictional-project disclaimer.
 
+## About exception (split B&W hero)
+A deliberate, declared exception, only for `/about`. Full-screen hero (100svh) with two black-and-white photos side by side, the title "Elevating everyday." in paper color over the lower-left of the photos, and a transparent header with paper-colored logo and nav. On phones the hero shows one photo only (the 4 a.m. tea one) instead of two. When the hero leaves the viewport the header returns to the normal paper style. Below the hero everything follows the standard design (paper background, color photos). Do not apply this style to any other page.
+
 ## Checkout exception (cinematic dark)
-A deliberate, declared exception, like the About hero. Only the two checkout routes use a dark theme; every other page stays light. It is scoped with `data-theme="cinematic"` on the Layout wrapper (`src/styles/index.css`); the global tokens are not changed, inside the wrapper the same token names simply point to dark values, so header, footer, inputs and buttons adapt by themselves.
+A deliberate, declared exception, like the About hero above. Only the two checkout routes use a dark theme; every other page stays light. It is scoped with `data-theme="cinematic"` on the Layout wrapper (`src/styles/index.css`); the global tokens are not changed, inside the wrapper the same token names simply point to dark values, so header, footer, inputs and buttons adapt by themselves.
 - Charcoal background `#151311` (as `paper`), surface `#1F1C19` (panels), text and lines in the old paper `#F5F1EA` (1px lines at 15% opacity), muted text `#A8A39A`.
 - Amber `#B5793B` for accents and the focus ring (about 5.4:1 on charcoal). Soft gold `#D8B77A` only for highlights such as the total and the order number.
 - Everything else still applies: square (radius 0), flat (no shadows, no gradients), Jost, uppercase labels.
