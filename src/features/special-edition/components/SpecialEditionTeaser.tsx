@@ -1,3 +1,4 @@
+import { responsiveImage } from '../../../lib/responsiveImage'
 import NewsletterForm from '../../newsletter/NewsletterForm'
 import { NEWS, TEASER } from '../content'
 
@@ -10,7 +11,10 @@ export default function SpecialEditionTeaser() {
     <section className="mx-auto w-full max-w-[1440px] px-(--gutter) py-(--section-y) md:pr-(--header-h)">
       <div className="grid items-center gap-8 md:grid-cols-2 md:gap-(--header-h)">
         <img
-          src={`${import.meta.env.BASE_URL}${TEASER.image.src}`}
+          {...responsiveImage(TEASER.image.src, 1400)}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          width={1400}
+          height={1874}
           alt={TEASER.image.alt}
           fetchPriority="high"
           className="aspect-[3/4] w-full object-cover"

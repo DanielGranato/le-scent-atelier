@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { cn } from '../../../lib/cn'
+import { responsiveImage } from '../../../lib/responsiveImage'
 import { getProducts } from '../api'
 import { FAMILIES } from '../families'
 import type { ScentFamily } from '../types'
@@ -38,7 +39,10 @@ export default function FamilyShowcase() {
         {FAMILIES.map((item, i) => (
           <img
             key={item.id}
-            src={`${import.meta.env.BASE_URL}${item.image}`}
+            {...responsiveImage(item.image, 1920)}
+            sizes="100vw"
+            width={1920}
+            height={917}
             alt=""
             loading="lazy"
             className={cn(

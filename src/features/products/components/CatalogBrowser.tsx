@@ -8,6 +8,7 @@ import { SORT_OPTIONS, sortProducts, type SortKey } from '../sorting'
 import type { Product } from '../types'
 import Filters from './Filters'
 import ProductGrid from './ProductGrid'
+import ProductGridSkeleton from './ProductGridSkeleton'
 
 const NO_PRODUCTS: Product[] = []
 
@@ -70,14 +71,17 @@ export default function CatalogBrowser() {
         </div>
       </div>
 
+      {/* the line and the grid keep their space while loading (skeleton), so the footer does not jump */}
+      <p role="status" className="mx-auto min-h-4 w-full max-w-[1440px] px-(--gutter) text-sm text-olive">
+        {products ? (visible.length === 1 ? '1 perfume' : `${visible.length} perfumes`) : ''}
+      </p>
+
+      {!products ? <ProductGridSkeleton /> : null}
+
       {products ? (
         <>
-          <p role="status" className="mx-auto w-full max-w-[1440px] px-(--gutter) text-sm text-olive">
-            {visible.length === 1 ? '1 perfume' : `${visible.length} perfumes`}
-          </p>
-
           {visible.length > 0 ? (
-            <ProductGrid products={visible} />
+            <ProductGrid products={visible} headingLevel="h2" />
           ) : (
             <div className="mx-auto flex w-full max-w-[1440px] flex-col items-start gap-4 px-(--gutter) py-(--section-y)">
               <p className="text-lg">Nothing matches that. Even we are surprised.</p>

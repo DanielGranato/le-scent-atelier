@@ -99,12 +99,21 @@ export function SprayBanner({ title, children, className = '', backgroundImage }
       <h1 className="spray-banner__sr">{title}</h1>
       {backgroundImage ? (
         <>
-          <img
-            src={`${import.meta.env.BASE_URL}${backgroundImage}`}
-            alt=""
-            fetchPriority="high"
-            className="spray-banner__photo"
-          />
+          {/* phones get a smaller, tall crop of the photo (name-mobile.ext, the part a phone shows); no lazy loading, this is the first thing on the page */}
+          <picture>
+            <source
+              media="(max-width: 639px)"
+              srcSet={`${import.meta.env.BASE_URL}${backgroundImage.replace(/(\.[a-z0-9]+)$/i, '-mobile$1')}`}
+            />
+            <img
+              src={`${import.meta.env.BASE_URL}${backgroundImage}`}
+              alt=""
+              width={1679}
+              height={937}
+              fetchPriority="high"
+              className="spray-banner__photo"
+            />
+          </picture>
           {/* light veil so the dark words stay readable over the photo */}
           <div className="spray-banner__veil" aria-hidden="true" />
         </>

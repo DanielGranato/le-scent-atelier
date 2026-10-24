@@ -1,3 +1,4 @@
+import { responsiveImage } from '../../../lib/responsiveImage'
 import { PROMISES } from '../content'
 
 /**
@@ -10,7 +11,10 @@ export default function AboutPromises() {
     <section className="mx-auto w-full max-w-[1440px] px-(--gutter) py-(--header-h) md:pl-(--header-h)">
       <div className="grid items-center gap-8 md:grid-cols-2 md:gap-(--header-h)">
         <img
-          src={`${import.meta.env.BASE_URL}${PROMISES.image.src}`}
+          {...responsiveImage(PROMISES.image.src, 1400)}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          width={1400}
+          height={1720}
           alt={PROMISES.image.alt}
           loading="lazy"
           className="order-first aspect-[4/5] w-full object-cover md:order-last"

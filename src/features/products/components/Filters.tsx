@@ -27,7 +27,7 @@ export default function Filters({ value, onChange }: FiltersProps) {
                 aria-pressed={active}
                 className={cn(
                   'cursor-pointer py-1 text-xs font-semibold uppercase tracking-(--tracking-label) underline-offset-4 hover:underline',
-                  active ? 'underline' : 'text-ink/60 hover:text-ink',
+                  active ? 'underline' : 'text-olive hover:text-ink',
                 )}
               >
                 {label}

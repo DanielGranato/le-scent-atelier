@@ -1,4 +1,5 @@
 import { cn } from '../../../lib/cn'
+import { responsiveImage } from '../../../lib/responsiveImage'
 import NavItem from '../../../components/ui/NavItem'
 import type { FamilyInfo } from '../families'
 import { getFamilyNotes } from '../notes'
@@ -26,7 +27,10 @@ export default function FamilyNotesBlock({ family, products, reverse = false }: 
     <section aria-labelledby={`notes-${family.id}`} className="border-t border-ink/15">
       <div className="mx-auto grid w-full max-w-[1440px] items-center gap-8 px-(--gutter) py-(--section-y) md:grid-cols-2 md:gap-(--header-h) lg:py-[calc(var(--section-y)*1.25)]">
         <img
-          src={`${import.meta.env.BASE_URL}${family.image}`}
+          {...responsiveImage(family.image, 1920)}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          width={1920}
+          height={917}
           alt=""
           loading="lazy"
           className={cn('aspect-[4/3] w-full object-cover', reverse && 'md:order-last')}

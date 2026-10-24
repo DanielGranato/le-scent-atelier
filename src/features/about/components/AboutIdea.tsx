@@ -1,3 +1,4 @@
+import { responsiveImage } from '../../../lib/responsiveImage'
 import { IDEA } from '../content'
 
 /**
@@ -10,7 +11,10 @@ export default function AboutIdea() {
     <section className="mx-auto w-full max-w-[1440px] px-(--gutter) py-(--header-h) md:pr-(--header-h)">
       <div className="grid items-center gap-8 md:grid-cols-2 md:gap-(--header-h)">
         <img
-          src={`${import.meta.env.BASE_URL}${IDEA.image.src}`}
+          {...responsiveImage(IDEA.image.src, 1400)}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          width={1400}
+          height={1873}
           alt={IDEA.image.alt}
           loading="lazy"
           className="aspect-[3/4] w-full object-cover"
